@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>PeakTime</title>
+    <style>
+        body {
+            background: #f5f5f5;
+        }
+
+        .logo-container {
+            position: relative;
+            width: 80%;
+            height: 80%;
+            margin: 0 auto;
+        }
+
+        .default-container {
+            margin: 1em auto;
+            width: 95%;
+            background: white;
+            border: 1px solid #000;
+        }
+
+        .review-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            width: 95%;
+            background: white;
+            border: 1px solid #000;
+        }
+
+        #menu {
+            height: 20em;
+        }
+
+        #star fieldset{
+            direction: rtl;
+            border:0;
+        }
+
+        #star input[type=radio]{
+            display: none;
+        }
+        #star label{
+            font-size: 3em;
+            color: transparent;
+            text-shadow: 0 0 0 #f0f0f0;
+        }
+        #star label:hover{
+            text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+        }
+        #star label:hover ~ label{
+            text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+        }
+        #star input[type=radio]:checked ~ label{
+            text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+        }
+
+        #review_box {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        #reviewContents {
+            box-sizing: border-box;
+            border: solid 2px #D3D3D3;
+            border-radius: 5px;
+            font-size: 16px;
+            resize: none;
+        }
+
+        .bottom_menu {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            z-index:100;
+            border-top: 1px solid black;
+            background-color: white }
+        .bottom_menu > div {
+            float: right;
+            width: 33.33333333%;
+            height: 100%;
+            text-align: center;
+            padding-top: 13px; }
+    </style>
+
+</head>
+<body>
+    <div class="logo-container">
+        <img src="../static/PeakTime_logo-removed.png" alt="logo">
+    </div>
+    <div class="default-container">
+        <div>
+            <p>학생회관 식당, 상태</p>
+        </div>
+    </div>
+    <div class="default-container">
+        <div id="menu">
+        </div>
+    </div>
+
+    <!--    리뷰 남기기-->
+    <div class="review-container">
+        <form class="review-form" name="star" id="star" method="post">
+            <fieldset id="star_point">
+                <input type="radio" name="reviewStar" value="5" id="rate1"><label
+                    for="rate1">★</label>
+                <input type="radio" name="reviewStar" value="4" id="rate2"><label
+                    for="rate2">★</label>
+                <input type="radio" name="reviewStar" value="3" id="rate3"><label
+                    for="rate3">★</label>
+                <input type="radio" name="reviewStar" value="2" id="rate4"><label
+                    for="rate4">★</label>
+                <input type="radio" name="reviewStar" value="1" id="rate5"><label
+                    for="rate5">★</label>
+            </fieldset>
+            <div id = review_box>
+                <label for="reviewContents"></label>
+                <textarea class="col-auto form-control" type="text" id="reviewContents"
+                          placeholder="리뷰 남기기."></textarea>
+            </div>
+        </form>
+    </div>
+
+    <!--    하단 메뉴바-->
+    <div class="bottom_menu">
+        <div>
+            <img src="../static/bottom_menu/tag.png" alt="">
+        </div>
+        <div>
+            <img src="../static/bottom_menu/house.png" alt="">
+        </div>
+        <div>
+            <img src="../static/bottom_menu/tag.png" alt="">
+        </div>
+    </div>
+</body>
+</html>
