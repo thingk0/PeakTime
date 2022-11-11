@@ -57,8 +57,9 @@
                 text-align: center;
             }
 
-            .restaurant {
-                padding: 0.5em;
+            .today_menu_print {
+                padding: 3em;
+                color: #0d6efd;
             }
 
             .restaurant_name {
@@ -84,20 +85,20 @@
         <div class="container">
 
             <div class="row mx-1">
-                <div class="col border text-center rounded bg-white">
-                    <h4 class="mt-1 mb-1">학생회관</h4>
-                    <div class="bg-danger text-center rounded mt-2 mb-2" style="color: #f0f0f0">
-                        혼잡
-                    </div>
-                </div>
-
-                <div class="col border text-center rounded mx-2">
-                    <a th:href="@{/cafeteria-staff}" class="cafeteria">
-                        <h4 class="mt-1 mb-1">방목관</h4>
-                        <div class="bg-success text-center rounded mt-2 mb-2" style="color: #f0f0f0">
-                            여유
+                <div class="col border text-center rounded">
+                    <a th:href="@{/cafeteria-student}" class="cafeteria">
+                        <h4 class="mt-1 mb-1">학생회관</h4>
+                        <div class="bg-danger text-center rounded mt-2 mb-2" style="color: #f0f0f0">
+                            혼잡
                         </div>
                     </a>
+                </div>
+
+                <div class="col border text-center rounded mx-2 bg-white">
+                    <h4 class="mt-1 mb-1">방목관</h4>
+                    <div class="bg-success text-center rounded mt-2 mb-2" style="color: #f0f0f0">
+                        여유
+                    </div>
                 </div>
 
                 <div class="col border text-center rounded">
