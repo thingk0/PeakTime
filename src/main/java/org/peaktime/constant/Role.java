@@ -1,9 +1,10 @@
 package org.peaktime.constant;
 
 public enum Role {
+
     USER,
     ADMIN,
-    STUDENT_MANAGER,
-    DORMITORY_MANAGER,
-    STAFF_MANAGER
+    STUDENT_CAFETERIA_MANAGER,
+    DORMITORY_CAFETERIA_MANAGER,
+    STAFF_CAFETERIA_MANAGER
 }

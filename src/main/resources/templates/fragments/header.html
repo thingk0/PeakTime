@@ -9,8 +9,8 @@
 
         <nav class="navbar navbar-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#" style="padding: 0.3em 0.3em;">
-                    <img alt="Brand" th:src="@{img/PeakTime_logo.png}" class="img-responsive" style="height: 3em; width: auto;">
+                <a class="navbar-brand" href="#" style="padding: 0.3em 0;">
+                    <img alt="Brand" src="/image/PeakTime_logo.png" class="img-responsive" style="height: 3em; width: auto;">
                 </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
@@ -20,7 +20,7 @@
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 
                     <div class="offcanvas-header">
-                        <img alt="Brand" th:src="@{img/PeakTime_logo.png}" class="img-responsive offcanvas-title" style="height: 50px; width: auto;">
+                        <img alt="Brand" src="/image/PeakTime_logo.png" class="img-responsive offcanvas-title" style="height: 50px; width: auto;">
                         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
 
@@ -28,13 +28,14 @@
 
                         <div class="mb-2">
                             <div class="d-grid gap-2">
-                                <a th:href="@{/cafeteria-student}" class="btn btn-outline-secondary" role="button">로그인</a>
-                                <a th:href="@{/cafeteria-student}" class="btn btn-outline-secondary" role="button">회원가입</a>
+                                <a sec:authorize="isAuthenticated()" th:href="@{/members/logout}" class="btn btn-outline-secondary" role="button">로그아웃</a>
+                                <a sec:authorize="isAnonymous()" th:href="@{/members/login}" class="btn btn-outline-secondary" role="button">로그인</a>
+                                <a sec:authorize="isAnonymous()" th:href="@{/members/new}" class="btn btn-outline-secondary" role="button">회원가입</a>
                             </div>
                         </div>
 
                         <div class="card text-center">
-                            <img th:src="@{img/profile.png}" class="card-img-top mx-auto mt-4 d-block" alt="profile" style="height: 10em; width: 10em">
+                            <img src="/image/profile.png" class="card-img-top mx-auto mt-4 d-block" alt="profile" style="height: 10em; width: 10em">
                             <div class="card-body">
                                 <h5 class="card-title">홍길동</h5>
                                 <p class="card-text">정보통신공학과 17학번</p>

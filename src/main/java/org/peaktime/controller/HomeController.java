@@ -11,4 +11,5 @@ public class HomeController {
     public String root() {
         return "redirect:/cafeteria-student";
     }
+
 }

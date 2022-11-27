@@ -26,41 +26,41 @@ body {
     border: 1px solid #000;
 }
 
-#menu {
+.menu {
     height: 20em;
 }
 
-#star fieldset{
+.star fieldset{
     direction: rtl;
     border:0;
 }
 
-#star input[type=radio]{
+.star input[type=radio]{
     display: none;
 }
-#star label{
+.star label{
     font-size: 3em;
     color: transparent;
     text-shadow: 0 0 0 #f0f0f0;
 }
-#star label:hover{
+.star label:hover{
     text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
 }
-#star label:hover ~ label{
+.star label:hover ~ label{
     text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
 }
-#star input[type=radio]:checked ~ label{
+.star input[type=radio]:checked ~ label{
     text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
 }
 
-#review_box {
+.review_box {
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 1em;
 }
 
-#reviewContents {
+.reviewContents {
     box-sizing: inherit;
     border: solid 2px #D3D3D3;
     border-radius: 5px;
@@ -84,6 +84,6 @@ body {
     text-align: center;
     padding-top: 13px; }
 
-#menu {
+.menu {
     height: 20em;
 }

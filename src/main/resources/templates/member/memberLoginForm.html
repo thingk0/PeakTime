@@ -1,0 +1,66 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}">
+
+    <th:block layout:fragment="css">
+        <style>
+            body {
+                background: #f5f5f5;
+            }
+
+            .fieldError {
+                color: #bd2130;
+            }
+
+            .signup_form {
+                border-radius: 25px;
+                border: 2px solid #2162ad;
+                background: #ffffff;
+                width: 93%;
+                height: auto;
+            }
+
+            .form-control {
+                border: 1px solid #2162ad;
+            }
+        </style>
+    </th:block>
+
+    <div layout:fragment="content">
+        <div class="container signup_form mt-3">
+            <div class="mt-4">
+                <h1 class="fw-bold" style="text-align: center; color: #0a2a88">로그인</h1>
+                <hr>
+            </div>
+            <div class="">
+                <form class="mx-3" th:action="@{/members/login}" role="form" method="post">
+                    <div class="form-group mb-3">
+                        <label th:for="email" class="mb-1">이메일</label>
+                        <input type="email" name="email" class="form-control" placeholder="이메일을 입력해주세요.">
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label th:for="password" class="mb-1">비밀번호</label>
+                        <input type="password" name="password" class="form-control" placeholder="비밀번호 입력">
+                    </div>
+
+                    <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}" style="text-align: center; color: red"></p>
+
+                    <div class="d-grid gap-2 mt-5 mb-4" style="text-align: center">
+                        <button type="submit" class="btn btn-primary" th:onclick="|location.href='/members/new'|">로그인</button>
+                    </div>
+
+                    <div class="mb-4" style="text-align: center">
+                        <a href="/members/new" role="button">
+                            회원 가입</a>
+                    </div>
+
+                    <input type="hidden" th:name="${_csrf.parameterName}"
+                           th:value="${_csrf.token}">
+
+                </form>
+            </div>
+        </div>
+    </div>
+</html>

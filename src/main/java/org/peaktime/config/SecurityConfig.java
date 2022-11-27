@@ -1,22 +1,101 @@
 package org.peaktime.config;
 
+import lombok.RequiredArgsConstructor;
+import org.peaktime.service.MemberService;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+@RequiredArgsConstructor
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final MemberService memberService;
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring()
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception
+    {
+
         http
-                .authorizeRequests()
-                .antMatchers("/**").permitAll()
+                .formLogin()
+                .loginPage("/members/login")
+                .defaultSuccessUrl("/")
+                .usernameParameter("email")
+                .failureUrl("/members/login/error")
+                .and()
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
+                .logoutSuccessUrl("/")
         ;
-        return http.build();
+        http.authorizeRequests()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/**").permitAll()
+                .antMatchers("/members/**").permitAll()
+                .anyRequest().authenticated()
+        ;
+    }
+
+
+
+//    @Override
+//    public void configure(HttpSecurity http) throws Exception {
+//
+//        http
+//                .formLogin()
+//                .loginPage("/login")
+//                .defaultSuccessUrl("/")
+//                .usernameParameter("email")
+//                .failureUrl("/login/error")
+//                .and()
+//                .logout()
+//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//                .logoutSuccessUrl("/")
+//        ;
+//
+//        http
+//                .authorizeRequests()
+////                .mvcMatchers("/**").permitAll()
+//                .anyRequest().permitAll()
+//        ;
+//
+//        http
+//                .exceptionHandling()
+//                .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+//        ;
+//
+//    }
+
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        web
+//                .ignoring()                              // spring security 필터 타지 않도록 설정
+//                .antMatchers("/img/**", "/icon/**") // 정적 리소스 무시
+//        ;
+//    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());
     }
 }
 
