@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ko"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      layout:decorate="~{layouts/layout1}">
+      layout:decorate="~{layouts/layout}">
 
     <!-- 로고 -->
     <div class="container" th:fragment="header">
@@ -43,31 +43,16 @@
 
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
-                                    <a th:href="@{/cafeteria-student}">학생회관 게시판</a>
+                                    <a th:href="@{/cafeteria/student}">학생회관 게시판</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <a th:href="@{/cafeteria-dormitory}">복지관 게시판</a>
+                                    <a th:href="@{/cafeteria/dormitory}">복지관 게시판</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <a th:href="@{/cafeteria-staff}">방목관 게시판</a>
+                                    <a th:href="@{/cafeteria/staff}">방목관 게시판</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <a th:href="@{/cafeteria-staff}">전체 게시판</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <a th:href="@{/cafeteria-staff}">전체 게시판</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <a th:href="@{/cafeteria-staff}">전체 게시판</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <a th:href="@{/cafeteria-staff}">전체 게시판</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <a th:href="@{/cafeteria-staff}">전체 게시판</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <a th:href="@{/cafeteria-staff}">전체 게시판</a>
+                                    <a th:href="@{/cafeteria/staff}">전체 게시판</a>
                                 </li>
 
                             </ul>

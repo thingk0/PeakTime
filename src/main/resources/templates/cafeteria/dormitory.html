@@ -1,0 +1,112 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layouts/layout}">
+
+    <div layout:fragment="content">
+        <!-- 식당 리스트 -->
+        <div class="container">
+
+            <div>
+                <div class="row mx-1">
+                    <div class="col border text-center rounded">
+                        <a th:href="@{/cafeteria/student}" class="cafeteria">
+                            <h4 class="mt-1 mb-1">학생회관</h4>
+                            <div class="bg-danger text-center rounded mt-2 mb-2" style="color: #f0f0f0">
+                                혼잡
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col border text-center rounded mx-2">
+                        <a th:href="@{/cafeteria/staff}" class="cafeteria">
+                            <h4 class="mt-1 mb-1">방목관</h4>
+                            <div class="bg-success text-center rounded mt-2 mb-2" style="color: #f0f0f0">
+                                여유
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col border text-center rounded bg-white">
+                        <h4 class="mt-1 mb-1">복지동</h4>
+                        <div class="bg-warning text-center rounded mt-2 mb-2" style="color: #f0f0f0">
+                            보통
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 메뉴 리스트 -->
+        <div class="container mt-3 mb-3">
+            <div class="border bg-white rounded">
+                <h1 class="menu_print">
+                    오므라이스<br>
+                    된장국<br>
+                    열무김치<br>
+                    계란말이<br>
+                </h1>
+            </div>
+        </div>
+
+
+        <!--    리뷰 남기기-->
+        <!-- 리뷰 남기기-->
+        <!-- 인증된 사용자일 경우에만 리뷰 남길 수 있도록 -->
+        <div id="review">
+            <div sec:authorize="isAuthenticated()">
+                <form class="container star" name="star" method="post">
+                    <!-- 별점 표기-->
+                    <div class="review container form-control">
+                        <fieldset class="review_star center_alignment">
+                            <input type="radio" name="reviewStar" value="5" id="rate1-1"><label
+                                for="rate1-1">★</label>
+                            <input type="radio" name="reviewStar" value="4" id="rate2-1"><label
+                                for="rate2-1">★</label>
+                            <input type="radio" name="reviewStar" value="3" id="rate3-1"><label
+                                for="rate3-1">★</label>
+                            <input type="radio" name="reviewStar" value="2" id="rate4-1"><label
+                                for="rate4-1">★</label>
+                            <input type="radio" name="reviewStar" value="1" id="rate5-1"><label
+                                for="rate5-1">★</label>
+                        </fieldset>
+
+                        <!-- 한줄평 남기기.-->
+                        <label class="form-label" for="review_text-1"></label>
+                        <textarea class="form-control review_text" type="text" id="review_text-1"
+                                  placeholder="한줄평 남기기."></textarea>
+                        <div class="review_btn">
+                            <button type="button" class="btn btn-outline-primary btn-sm mt-2 mb-1">리뷰 작성</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- 인증이 안 된 사용자는 리뷰 남길 수 없도록 disabled -->
+            <div sec:authorize="isAnonymous()">
+                <form class="container" name="star" id="star" method="post">
+                    <!-- 별점 표기-->
+                    <div class="review container form-control">
+                        <div class="mt-2 border d-flex justify-content-center rounded"
+                             style="background: #e1e1e1">
+                            <div style="font-size: large;">로그인 후 이용가능</div>
+                        </div>
+
+                        <!-- 한줄평 남기기.-->
+                        <label class="form-label" for="review_text-2"></label>
+                        <textarea disabled class="form-control" type="text" id="review_text-2"
+                                  placeholder="한줄평 남기기."></textarea>
+                        <div class="review_btn">
+                            <button disabled type="button" class="btn btn-outline-secondary btn-sm mt-2 mb-1">리뷰 작성</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+</html>

@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
+
 
 @Service
 @RequiredArgsConstructor
@@ -27,22 +29,27 @@ public class MemberService implements UserDetailsService {
     }
 
     /**
+     * 이메일을 통해서 회원조회하고 닉네임 반환.
+     */
+    public String usernameFindByEmail(String email) {
+        Member member = memberRepository.findByEmail(email).orElseThrow(
+                () -> new EntityNotFoundException("해당 이메일을 사용한 계정을 찾을 수 없습니다."));
+        return member.getName();
+    }
+
+    /**
      * 이메일을 통해서 기존에 계정이 있는지를 확인하여 만약 중복될 경우 에러 발생.
      */
     private void validateDuplicateMember(Member member) {
-        Member findMember = memberRepository.findByEmail(member.getEmail());
-        if (findMember != null) {
-            throw new IllegalStateException("이미 가입된 회원입니다.");
-        }
+        memberRepository.findByEmail(member.getEmail()).orElseThrow(
+                () -> new IllegalStateException("이미 가입된 회원입니다."));
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Member member = memberRepository.findByEmail(email);
 
-        if (member == null) {
-            throw new UsernameNotFoundException(email);
-        }
+        Member member = memberRepository.findByEmail(email).orElseThrow(
+                () -> new UsernameNotFoundException(email));
 
         return User.builder()
                 .username(member.getEmail())

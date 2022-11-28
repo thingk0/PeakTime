@@ -57,7 +57,7 @@ public class MemberController {
             return "member/memberForm";
         }
 
-        return "redirect:/cafeteria-student";
+        return "redirect:/cafeteria/student";
     }
 
 

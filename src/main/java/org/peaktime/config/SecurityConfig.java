@@ -56,43 +56,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-
-//    @Override
-//    public void configure(HttpSecurity http) throws Exception {
-//
-//        http
-//                .formLogin()
-//                .loginPage("/login")
-//                .defaultSuccessUrl("/")
-//                .usernameParameter("email")
-//                .failureUrl("/login/error")
-//                .and()
-//                .logout()
-//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//                .logoutSuccessUrl("/")
-//        ;
-//
-//        http
-//                .authorizeRequests()
-////                .mvcMatchers("/**").permitAll()
-//                .anyRequest().permitAll()
-//        ;
-//
-//        http
-//                .exceptionHandling()
-//                .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
-//        ;
-//
-//    }
-
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        web
-//                .ignoring()                              // spring security 필터 타지 않도록 설정
-//                .antMatchers("/img/**", "/icon/**") // 정적 리소스 무시
-//        ;
-//    }
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());

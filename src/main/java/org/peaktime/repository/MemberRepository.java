@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<Member, Integer> {
 
     Optional<Member> findByName(String name);
-    Member findByEmail(String email);
+    Optional<Member> findByEmail(String email);
 
     /* 유효성 검사 - 중복 체크
      * 중복 : true
