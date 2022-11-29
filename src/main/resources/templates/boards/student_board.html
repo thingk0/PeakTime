@@ -4,10 +4,42 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layouts/layout}">
 
+    <th:block layout:fragment="css">
+        <style>
+            .table {
+                margin-left: auto;
+                margin-right: auto;
+
+                max-height: 800px;
+            }
+
+        </style>
+    </th:block>
+
     <div layout:fragment="content">
 
+        <div class="container">
+            <div class="table-responsive border rounded bg-white mx-1">
+                <table class="table table-striped">
+                    <thead>
+                        <tr style="text-align: center; color: #032854">
+                            <th>글쓴이</th>
+                            <th>한줄평</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="board: ${boardList}">
+                            <td style="text-align: center">테스트</td>
+                            <td th:text="${board.content}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
         <div>
-            학생식당 게시판 입니다.
+            <form>
+
+            </form>
         </div>
 
     </div>

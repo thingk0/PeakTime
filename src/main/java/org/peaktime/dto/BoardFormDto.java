@@ -2,6 +2,8 @@ package org.peaktime.dto;
 
 import lombok.*;
 import javax.validation.constraints.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -11,4 +13,5 @@ public class BoardFormDto {
     @Min(value = 10) @Max(value = 100)
     private String content;
 
+    private Double score;
 }

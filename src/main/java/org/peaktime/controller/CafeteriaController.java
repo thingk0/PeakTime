@@ -1,15 +1,17 @@
 package org.peaktime.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.peaktime.dto.BoardFormDto;
 import org.peaktime.entity.SdtMenu;
 import org.peaktime.service.MemberService;
-import org.peaktime.service.SdtCafeteriaService;
+import org.peaktime.service.MenuService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,7 +20,7 @@ import java.util.List;
 @RequestMapping(value = "/cafeteria")
 public class CafeteriaController {
 
-    private final SdtCafeteriaService studentCafeteriaService;
+    private final MenuService menuService;
     private final MemberService memberService;
 
     @GetMapping(value = "/student")
@@ -31,9 +33,12 @@ public class CafeteriaController {
             model.addAttribute("username", username);
         }
 
-        List<SdtMenu> studentMenus = studentCafeteriaService.getSdtMenus();
-        model.addAttribute("menu", studentMenus);
-        model.addAttribute("today", LocalDateTime.now());
+        // 학생식당 메뉴 리스트.
+        List<SdtMenu> sdtMenus = menuService.findAllSdtMenus();
+
+        model.addAttribute("menu", sdtMenus);
+        model.addAttribute("today", LocalDate.now());
+
         return "cafeteria/student";
     }
 

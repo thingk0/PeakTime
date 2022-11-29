@@ -42,18 +42,18 @@
                 <div class="border bg-white rounded">
                     <div th:each="menu : ${menu}" class="row mx-1 mt-4 mb-4">
                         <div class="col-5">
-                            <div th:if="${#temporals.format(today, 'MM-dd') == #temporals.format(menu.getDateTime(), 'MM-dd')}">
-                                <h4 class="today menu_print" th:text="|${#temporals.format(menu.getDateTime(), 'MM.dd')} (${#temporals.format(menu.getDateTime(), 'E')})|"></h4>
+                            <div th:if="${#temporals.format(today, 'MM-dd') == #temporals.format(menu.dateTime, 'MM-dd')}">
+                                <h4 class="today menu_print" th:text="|${#temporals.format(menu.dateTime, 'MM.dd')} (${#temporals.format(menu.dateTime, 'E')})|"></h4>
                             </div>
-                            <div th:unless="${#temporals.format(today, 'MM-dd') == #temporals.format(menu.getDateTime(), 'MM-dd')}">
-                                <h4 class="notToday menu_print" th:text="|${#temporals.format(menu.getDateTime(), 'MM.dd')} (${#temporals.format(menu.getDateTime(), 'E')})|"></h4>
+                            <div th:unless="${#temporals.format(today, 'MM-dd') == #temporals.format(menu.dateTime, 'MM-dd')}">
+                                <h4 class="notToday menu_print" th:text="|${#temporals.format(menu.dateTime, 'MM.dd')} (${#temporals.format(menu.dateTime, 'E')})|"></h4>
                             </div>
                         </div>
                         <div class="col-7">
-                            <div th:if="${#temporals.format(today, 'MM-dd') == #temporals.format(menu.getDateTime(), 'MM-dd')}">
+                            <div th:if="${#temporals.format(today, 'MM-dd') == #temporals.format(menu.dateTime, 'MM-dd')}">
                                 <h4 class="today menu_print" th:text="${menu.getMenu()}"></h4>
                             </div>
-                            <div th:unless="${#temporals.format(today, 'MM-dd') == #temporals.format(menu.getDateTime(), 'MM-dd')}">
+                            <div th:unless="${#temporals.format(today, 'MM-dd') == #temporals.format(menu.dateTime, 'MM-dd')}">
                                 <h4 class="notToday menu_print" th:text="${menu.getMenu()}"></h4>
                             </div>
                         </div>
@@ -66,28 +66,31 @@
             <!-- 인증된 사용자일 경우에만 리뷰 남길 수 있도록 -->
             <div id="review">
                 <div sec:authorize="isAuthenticated()">
-                    <form class="container star" name="star" method="post">
+                    <form class="container star" th:action="@{/boards/student/create}"
+                          role="form" method="post">
+
                         <!-- 별점 표기-->
                         <div class="review container form-control">
                             <fieldset class="review_star center_alignment">
-                                <input type="radio" name="reviewStar" value="5" id="rate1-1"><label
+                                <input type="radio" name="score" value="5" id="rate1-1"><label
                                     for="rate1-1">★</label>
-                                <input type="radio" name="reviewStar" value="4" id="rate2-1"><label
+                                <input type="radio" name="score" value="4" id="rate2-1"><label
                                     for="rate2-1">★</label>
-                                <input type="radio" name="reviewStar" value="3" id="rate3-1"><label
+                                <input type="radio" name="score" value="3" id="rate3-1"><label
                                     for="rate3-1">★</label>
-                                <input type="radio" name="reviewStar" value="2" id="rate4-1"><label
+                                <input type="radio" name="score" value="2" id="rate4-1"><label
                                     for="rate4-1">★</label>
-                                <input type="radio" name="reviewStar" value="1" id="rate5-1"><label
+                                <input required type="radio" name="score" value="1" id="rate5-1"><label
                                     for="rate5-1">★</label>
                             </fieldset>
 
                             <!-- 한줄평 남기기.-->
                             <label class="form-label" for="review_text-1"></label>
-                            <textarea class="form-control review_text" type="text" id="review_text-1"
-                                      placeholder="한줄평 남기기."></textarea>
+                            <textarea name="content" class="form-control review_text" type="text" id="review_text-1"
+                                      placeholder="한줄평 남기기." required></textarea>
+
                             <div class="review_btn">
-                                <button type="button" class="btn btn-outline-primary btn-sm mt-2 mb-1">리뷰 작성</button>
+                                <button type="submit" class="btn btn-outline-primary btn-sm mt-2 mb-1">리뷰 작성</button>
                             </div>
                         </div>
                     </form>
@@ -107,9 +110,11 @@
                             <label class="form-label" for="review_text-2"></label>
                             <textarea disabled class="form-control" type="text" id="review_text-2"
                                       placeholder="한줄평 남기기."></textarea>
+
                             <div class="review_btn">
                                 <button disabled type="button" class="btn btn-outline-secondary btn-sm mt-2 mb-1">리뷰 작성</button>
                             </div>
+
                         </div>
                     </form>
                 </div>

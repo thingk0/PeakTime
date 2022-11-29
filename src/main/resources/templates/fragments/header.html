@@ -37,13 +37,13 @@
                         <div class="card text-center">
                             <img src="/image/profile.png" class="card-img-top mx-auto mt-4 d-block" alt="profile" style="height: 10em; width: 10em">
                             <div class="card-body">
-                                <h5 class="card-title">홍길동</h5>
+                                <h5 sec:authorize="isAuthenticated()" class="card-title" th:text="${username}">홍길동</h5>
                                 <p class="card-text">정보통신공학과 17학번</p>
                             </div>
 
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
-                                    <a th:href="@{/cafeteria/student}">학생회관 게시판</a>
+                                    <a th:href="@{/boards/student}">학생회관 게시판</a>
                                 </li>
                                 <li class="list-group-item">
                                     <a th:href="@{/cafeteria/dormitory}">복지관 게시판</a>
