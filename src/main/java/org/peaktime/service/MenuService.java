@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,14 @@ public class MenuService {
     @Transactional
     public List<SdtMenu> findAllSdtMenus() {
         return sdtMenuRepository.findAll();
+    }
+
+    @Transactional
+    public List<SdtMenu> weekSdtMenus(LocalDate today) {
+        //
+        DayOfWeek dayOfWeek = today.getDayOfWeek();
+
+        return null;
     }
 
     /**

@@ -25,10 +25,12 @@ public class Board extends BaseEntity {
     @Column(nullable = false, length = 100)
     private String content;
 
+    private Double score;
+
     @Builder
-    public Board(Cafeteria cafeteria, String content) {
+    public Board(Cafeteria cafeteria, String content, Double score) {
         this.cafeteria = cafeteria;
         this.content = content;
+        this.score = score;
     }
-
 }

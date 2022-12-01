@@ -16,10 +16,13 @@ public class BoardCreateDto {
     private Cafeteria cafeteria;
     private String content;
 
+    private Double score;
+
     public Board toEntity() {
         return Board.builder()
                 .cafeteria(this.cafeteria)
                 .content(this.content)
+                .score(this.score)
                 .build();
     }
 }

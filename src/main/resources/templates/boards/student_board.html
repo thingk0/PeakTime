@@ -23,13 +23,13 @@
                 <table class="table table-striped">
                     <thead>
                         <tr style="text-align: center; color: #032854">
-                            <th>글쓴이</th>
+                            <th style="width: 15%">평점</th>
                             <th>한줄평</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="board: ${boardList}">
-                            <td style="text-align: center">테스트</td>
+                            <td th:text="${board.score.intValue()}" style="text-align: center;"></td>
                             <td th:text="${board.content}"></td>
                         </tr>
                     </tbody>

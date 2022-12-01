@@ -4,7 +4,24 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layouts/layout}">
 
+    <!--사용자 스크립트 추가-->
+    <th:block layout:fragment="script">
+        <script th:inline="javascript">
+            $(document).ready(function() {
+                $('#review_text-1').on('keyup', function() {
+                    $('#review_count').html("("+$(this).val().length+" / 50)");
+
+                    if($(this).val().length > 50) {
+                        $(this).val($(this).val().substring(0, 50));
+                        $('#review_count').html("(50 / 50)");
+                    }
+                });
+            });
+        </script>
+    </th:block>
+
     <div layout:fragment="content">
+
         <!-- 식당 리스트 -->
         <div class="container">
 
@@ -37,8 +54,8 @@
 
         </div>
 
-            <!-- 메뉴 리스트 -->
-            <div class="container mt-3 mb-3">
+        <!-- 메뉴 리스트 -->
+        <div class="container mt-3 mb-3">
                 <div class="border bg-white rounded">
                     <div th:each="menu : ${menu}" class="row mx-1 mt-4 mb-4">
                         <div class="col-5">
@@ -61,11 +78,53 @@
                 </div>
             </div>
 
+        <!-- 학생식당 관리자: 메뉴 추가 기능 -->
+        <div sec:authorize="hasRole('ROLE_STUDENT_MANAGER')">
+                <div class="container mt-3 mb-3">
+                    <div class="border bg-white rounded">
+                        <p class="d-flex justify-content-center"
+                           style="background: #acc9f5; font-weight: bold">
+                            MENU SETTING
+                        </p>
 
-            <!-- 리뷰 남기기-->
-            <!-- 인증된 사용자일 경우에만 리뷰 남길 수 있도록 -->
-            <div id="review">
-                <div sec:authorize="isAuthenticated()">
+                        <!-- 메뉴 추가하기 -->
+                        <form role="form" method="post" th:action="@{/menu/student/create}">
+                            <!-- 날짜 입력-->
+                            <div class="row mx-2 mb-2">
+                                <div class="col-3 border rounded">
+                                    <div style="text-align: center; font-weight: bold">
+                                        DATE
+                                    </div>
+                                </div>
+                                <div class="col-9">
+                                    <input required type="date" name="date" style="width: 100%">
+                                </div>
+                            </div>
+                            <!-- 메뉴 입력-->
+                            <div class="row mx-2 mb-1">
+                                <div class="col-3 border rounded">
+                                    <div style="text-align: center; font-weight: bold">
+                                        MENU
+                                    </div>
+                                </div>
+                                <div class="col-9">
+                                    <input required type="text" name="menu" style="width: 100%">
+                                </div>
+                            </div>
+                            <!-- 버튼 -->
+                            <div class="d-flex justify-content-end mb-1" style="margin-right: 1em">
+                                <button type="submit" class="btn btn-outline-primary btn-sm mt-2 mb-1">저장하기</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+        </div>
+
+        <!-- 리뷰 남기기-->
+        <!-- 인증된 사용자일 경우에만 리뷰 남길 수 있도록 -->
+        <div id="review">
+                <div sec:authorize="hasRole('ROLE_USER')">
                     <form class="container star" th:action="@{/boards/student/create}"
                           role="form" method="post">
 
@@ -89,8 +148,11 @@
                             <textarea name="content" class="form-control review_text" type="text" id="review_text-1"
                                       placeholder="한줄평 남기기." required></textarea>
 
-                            <div class="review_btn">
-                                <button type="submit" class="btn btn-outline-primary btn-sm mt-2 mb-1">리뷰 작성</button>
+                            <div id="count_reviewBtn">
+                                <div id="review_count" style="font-size: 80%">(0 / 50)</div>
+                                <div class="review_btn">
+                                    <button type="submit" class="btn btn-outline-primary btn-sm mt-2 mb-1">리뷰 작성</button>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -119,6 +181,7 @@
                     </form>
                 </div>
             </div>
+
     </div>
 
 </html>

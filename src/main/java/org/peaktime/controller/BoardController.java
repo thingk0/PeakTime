@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import javax.validation.constraints.Max;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -44,7 +45,6 @@ public class BoardController {
                               Model model) {
 
 
-
         // 오늘 날짜의 메뉴 스코어를 갱신.
         menuService.updateSdtMenuScore(LocalDate.now(), score);
 
@@ -52,6 +52,7 @@ public class BoardController {
         BoardCreateDto createDto = BoardCreateDto.builder()
                 .cafeteria(Cafeteria.STUDENT)
                 .content(content)
+                .score(score)
                 .build();
 
         // 보드 저장.

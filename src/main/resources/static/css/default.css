@@ -72,10 +72,9 @@ body {
     font-weight: bold;
 }
 
-.review_btn {
-    display: flex;
-    justify-content: right;
-}
+/*.review_btn {*/
+/*    display: inline-flex;*/
+/*}*/
 
 .cafeteria {
     color: black;
