@@ -1,16 +1,21 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 
-<!-- 하단 메뉴바-->
-    <div class="bottom_menu" th:fragment="footer">
-        <div>
-            <a th:href="@{/cafeteria/dormitory}"><img src="/icon/house.png" alt=""></a>
+
+    <div th:fragment="footer">
+        <div class="container" style="height: 50px">
         </div>
-        <div>
-            <a th:href="@{/cafeteria/staff}"><img src="/icon/house.png" alt=""></a>
-        </div>
-        <div>
-            <a th:href="@{/cafeteria/student}"><img src="/icon/house.png" alt=""></a>
+        <!-- 하단 메뉴바-->
+        <div class="bottom_menu">
+            <div>
+                <a th:href="@{/cafeteria/dormitory}"><img src="/icon/house.png" alt=""></a>
+            </div>
+            <div>
+                <a th:href="@{/cafeteria/staff}"><img src="/icon/house.png" alt=""></a>
+            </div>
+            <div>
+                <a th:href="@{/cafeteria/student}"><img src="/icon/house.png" alt=""></a>
+            </div>
         </div>
     </div>
 

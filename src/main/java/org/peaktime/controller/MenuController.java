@@ -32,8 +32,7 @@ public class MenuController {
                 .menu(menu)
                 .build();
 
-        SdtMenu sdtMenu = menuCreateDto.toEntity();
-        menuService.saveSdtMenu(sdtMenu);
+        menuService.saveSdtMenu(menuCreateDto);
 
         return "redirect:/";
     }

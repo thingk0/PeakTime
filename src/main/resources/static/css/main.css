@@ -74,9 +74,11 @@ body {
     left: 0;
     width: 100%;
     height: 50px;
-    z-index:100;
-    border-top: 1px solid black;
-    background-color: white }
+    z-index: -1;
+    border-top: 1px solid #032854;
+    background-color: white;
+}
+
 .bottom_menu > div {
     float: right;
     width: 33.33333333%;

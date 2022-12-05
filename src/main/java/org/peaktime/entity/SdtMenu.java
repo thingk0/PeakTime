@@ -8,6 +8,7 @@ import org.peaktime.entity.base.BaseEntity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.temporal.WeekFields;
 
 @Entity
 @Getter
@@ -25,11 +26,14 @@ public class SdtMenu {
     private String menu;
     @Column(name = "student_menu_score")
     private Double score;
+    @Column(name = "student_menu_created_week")
+    private Integer week;
 
     @Builder
     public SdtMenu(LocalDate dateTime, String menu) {
-        this.dateTime = dateTime;
         this.menu = menu;
+        this.dateTime = dateTime;
+        this.week = dateTime.get(WeekFields.ISO.weekOfYear());
     }
 
     public void updateScore(Double point) {

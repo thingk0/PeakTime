@@ -34,7 +34,7 @@ public class CafeteriaController {
         }
 
         // 학생식당 메뉴 리스트.
-        List<SdtMenu> sdtMenus = menuService.findAllSdtMenus();
+        List<SdtMenu> sdtMenus = menuService.getAllSdtMenus(LocalDate.now());
 
         model.addAttribute("menu", sdtMenus);
         model.addAttribute("today", LocalDate.now());

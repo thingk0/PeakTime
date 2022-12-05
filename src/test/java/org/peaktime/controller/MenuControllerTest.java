@@ -35,7 +35,7 @@ class MenuControllerTest {
                     .menu(menuList[i])
                     .build();
 
-            menuService.saveSdtMenu(sdtMenu);
+//            menuService.saveSdtMenu(sdtMenu);
         }
 
 
