@@ -3,28 +3,19 @@ package org.peaktime.controller;
 import lombok.RequiredArgsConstructor;
 import org.peaktime.constant.Cafeteria;
 import org.peaktime.dto.BoardCreateDto;
-import org.peaktime.dto.BoardFormDto;
 import org.peaktime.entity.Board;
 import org.peaktime.service.BoardService;
 import org.peaktime.service.MemberService;
 import org.peaktime.service.MenuService;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import javax.validation.constraints.Max;
 import java.security.Principal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -75,7 +66,7 @@ public class BoardController {
             model.addAttribute("username", username);
         }
 
-        List<Board> boardList = boardService.getBoards(Cafeteria.STUDENT);
+        List<Board> boardList = boardService.getBoardsInToday(Cafeteria.STUDENT);
         model.addAttribute("boardList", boardList);
 
         return "boards/student_board";

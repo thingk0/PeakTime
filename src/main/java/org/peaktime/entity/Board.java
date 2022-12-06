@@ -7,6 +7,7 @@ import org.peaktime.constant.Cafeteria;
 import org.peaktime.entity.base.BaseEntity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -27,10 +28,14 @@ public class Board extends BaseEntity {
 
     private Double score;
 
+    @Column(name = "board_date")
+    private LocalDate dateTime;
+
     @Builder
     public Board(Cafeteria cafeteria, String content, Double score) {
         this.cafeteria = cafeteria;
         this.content = content;
+        this.dateTime = LocalDate.now();
         this.score = score;
     }
 }

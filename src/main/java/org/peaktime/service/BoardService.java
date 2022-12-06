@@ -5,9 +5,9 @@ import org.peaktime.constant.Cafeteria;
 import org.peaktime.dto.BoardCreateDto;
 import org.peaktime.entity.Board;
 import org.peaktime.repository.BoardRepository;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -28,11 +28,14 @@ public class BoardService {
     }
 
     /**
-     * 특정 보드 전체조회
+     * 특정 보드 전체조회 & 날짜별로
      */
-    public List<Board> getBoards(Cafeteria cafeteria) {
+    public List<Board> getBoardsInToday(Cafeteria cafeteria) {
         // Cafeteria ENUM 을 통해서 특정 보드를 찾은 후 반환.
-        return boardRepository.findByCafeteria(cafeteria);
+//        return boardRepository.findByCafeteria(cafeteria);
+
+        // 식당 종류와 오늘 날짜를 기준으로 조회.
+        return boardRepository.findByCafeteriaAndDateTime(cafeteria, LocalDate.now());
     }
 
 

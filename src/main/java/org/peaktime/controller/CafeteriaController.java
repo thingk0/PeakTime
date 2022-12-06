@@ -1,8 +1,8 @@
 package org.peaktime.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.peaktime.dto.BoardFormDto;
 import org.peaktime.entity.SdtMenu;
+import org.peaktime.service.CafeteriaService;
 import org.peaktime.service.MemberService;
 import org.peaktime.service.MenuService;
 import org.springframework.stereotype.Controller;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -23,8 +22,13 @@ public class CafeteriaController {
     private final MenuService menuService;
     private final MemberService memberService;
 
+    private final CafeteriaService cafeteriaService;
+
     @GetMapping(value = "/student")
     public String cafeteriaStudent(Model model, Principal principal) {
+
+        // 현재 식당 혼잡도 현황.
+        String cafeteriaStatus = cafeteriaService.getCafeteriaStatus();
 
         // 혹시 로그인한 객체가 있을 경우,
         if (principal != null) {
@@ -38,6 +42,7 @@ public class CafeteriaController {
 
         model.addAttribute("menu", sdtMenus);
         model.addAttribute("today", LocalDate.now());
+        model.addAttribute("status", cafeteriaStatus.toString());
 
         return "cafeteria/student";
     }

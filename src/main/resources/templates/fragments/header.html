@@ -35,10 +35,12 @@
                         </div>
 
                         <div class="card text-center">
-                            <img src="/image/profile.png" class="card-img-top mx-auto mt-4 d-block" alt="profile" style="height: 10em; width: 10em">
-                            <div class="card-body">
-                                <h5 sec:authorize="isAuthenticated()" class="card-title" th:text="${username}">홍길동</h5>
-                                <p class="card-text">정보통신공학과 17학번</p>
+                            <div sec:authorize="isAuthenticated()">
+                                <img src="/image/profile.png" class="card-img-top mx-auto mt-4 d-block" alt="profile" style="height: 10em; width: 10em">
+                                <div class="card-body">
+                                    <h5 sec:authorize="isAuthenticated()" class="card-title" th:text="${username}">홍길동</h5>
+                                    <p class="card-text">정보통신공학과 17학번</p>
+                                </div>
                             </div>
 
                             <ul class="list-group list-group-flush">
