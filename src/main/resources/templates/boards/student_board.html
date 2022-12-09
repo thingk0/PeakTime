@@ -18,6 +18,120 @@
 
     <div layout:fragment="content">
 
+        <!-- 오늘의 평점 -->
+        <div class="mb-3 mx-3">
+            <!-- 1점 미만 -->
+            <div th:if="${todayScore < 1.0}">
+                <div class="d-flex justify-content-center border rounded bg-white pt-1 pb-1">
+                    <img src="/icon/star_full.png" style="width: 10%">
+                    <div th:text="${#numbers.formatDecimal(todayScore, 0, 2)}"
+                         style="font-size: 150%; margin-left: 0.5em">
+                    </div>
+                </div>
+            </div>
+            <!-- 1점 이상 -->
+            <div th:if="${todayScore >= 1.0 && todayScore < 1.5}">
+                <div class="d-flex justify-content-center border rounded bg-white pt-1 pb-1">
+                    <img src="/icon/star_full.png" style="width: 10%">
+                    <div th:text="${#numbers.formatDecimal(todayScore, 0, 2)}"
+                         style="font-size: 150%; margin-left: 0.5em">
+                    </div>
+                </div>
+            </div>
+            <!-- 1.5점 이상 -->
+            <div th:if="${todayScore >= 1.5 && todayScore < 2.0}">
+                <div class="d-flex justify-content-center border rounded bg-white pt-1 pb-1">
+                    <img src="/icon/star_full.png" style="width: 10%">
+                    <img src="/icon/star_half.png" style="width: 10%">
+                    <div th:text="${#numbers.formatDecimal(todayScore, 0, 2)}"
+                         style="font-size: 150%; margin-left: 0.5em">
+                    </div>
+                </div>
+            </div>
+            <!-- 2점 이상 -->
+            <div th:if="${todayScore >= 2.0 && todayScore < 2.5}">
+                <div class="d-flex justify-content-center border rounded bg-white pt-1 pb-1">
+                    <img src="/icon/star_full.png" style="width: 10%">
+                    <img src="/icon/star_full.png" style="width: 10%">
+                    <div th:text="${#numbers.formatDecimal(todayScore, 0, 2)}"
+                         style="font-size: 150%; margin-left: 0.5em">
+                    </div>
+                </div>
+            </div>
+            <!-- 2.5점 이상 -->
+            <div th:if="${todayScore >= 2.5 && todayScore < 3.0}">
+                <div class="d-flex justify-content-center border rounded bg-white pt-1 pb-1">
+                    <img src="/icon/star_full.png" style="width: 10%">
+                    <img src="/icon/star_full.png" style="width: 10%">
+                    <img src="/icon/star_half.png" style="width: 10%">
+                    <div th:text="${#numbers.formatDecimal(todayScore, 0, 2)}"
+                         style="font-size: 150%; margin-left: 0.5em">
+                    </div>
+                </div>
+            </div>
+            <!-- 3점 이상 -->
+            <div th:if="${todayScore >= 3.0 && todayScore < 3.5}">
+                <div class="d-flex justify-content-center border rounded bg-white pt-1 pb-1">
+                    <img src="/icon/star_full.png" style="width: 10%">
+                    <img src="/icon/star_full.png" style="width: 10%">
+                    <img src="/icon/star_full.png" style="width: 10%">
+                    <div th:text="${#numbers.formatDecimal(todayScore, 0, 2)}"
+                         style="font-size: 150%; margin-left: 0.5em">
+                    </div>
+                </div>
+            </div>
+            <!-- 3.5점 이상 -->
+            <div th:if="${todayScore >= 3.5 && todayScore < 4.0}">
+                <div class="d-flex justify-content-center border rounded bg-white pt-1 pb-1">
+                    <img src="/icon/star_full.png" style="width: 10%">
+                    <img src="/icon/star_full.png" style="width: 10%">
+                    <img src="/icon/star_full.png" style="width: 10%">
+                    <img src="/icon/star_half.png" style="width: 10%">
+                    <div th:text="${#numbers.formatDecimal(todayScore, 0, 2)}"
+                         style="font-size: 150%; margin-left: 0.5em">
+                    </div>
+                </div>
+            </div>
+            <!-- 4점 이상 -->
+            <div th:if="${todayScore >= 4.0 && todayScore < 4.5}">
+                <div class="d-flex justify-content-center border rounded bg-white pt-1 pb-1">
+                    <img src="/icon/star_full.png" style="width: 10%">
+                    <img src="/icon/star_full.png" style="width: 10%">
+                    <img src="/icon/star_full.png" style="width: 10%">
+                    <img src="/icon/star_full.png" style="width: 10%">
+                    <div th:text="${#numbers.formatDecimal(todayScore, 0, 2)}"
+                         style="font-size: 150%; margin-left: 0.5em">
+                    </div>
+                </div>
+            </div>
+            <!-- 4.5점 이상 -->
+            <div th:if="${todayScore >= 4.5 && todayScore < 5.0}">
+                <div class="d-flex justify-content-center border rounded bg-white pt-1 pb-1">
+                    <img src="/icon/star_full.png" style="width: 10%">
+                    <img src="/icon/star_full.png" style="width: 10%">
+                    <img src="/icon/star_full.png" style="width: 10%">
+                    <img src="/icon/star_full.png" style="width: 10%">
+                    <img src="/icon/star_half.png" style="width: 10%">
+                    <div th:text="${#numbers.formatDecimal(todayScore, 0, 2)}"
+                         style="font-size: 150%; margin-left: 0.5em">
+                    </div>
+                </div>
+            </div>
+            <!-- 5점 -->
+            <div th:if="${todayScore == 5.0}">
+                <div class="d-flex justify-content-center border rounded bg-white pt-1 pb-1">
+                    <img src="/icon/star_full.png" style="width: 10%">
+                    <img src="/icon/star_full.png" style="width: 10%">
+                    <img src="/icon/star_full.png" style="width: 10%">
+                    <img src="/icon/star_full.png" style="width: 10%">
+                    <img src="/icon/star_full.png" style="width: 10%">
+                    <div th:text="${#numbers.formatDecimal(todayScore, 0, 2)}"
+                         style="font-size: 150%; margin-left: 0.5em">
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="container">
             <div class="table-responsive border rounded bg-white mx-1">
                 <table class="table table-striped">

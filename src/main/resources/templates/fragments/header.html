@@ -36,25 +36,45 @@
 
                         <div class="card text-center">
                             <div sec:authorize="isAuthenticated()">
-                                <img src="/image/profile.png" class="card-img-top mx-auto mt-4 d-block" alt="profile" style="height: 10em; width: 10em">
                                 <div class="card-body">
-                                    <h5 sec:authorize="isAuthenticated()" class="card-title" th:text="${username}">홍길동</h5>
-                                    <p class="card-text">정보통신공학과 17학번</p>
+
+                                    <!-- 로그인한 사용자의 닉네임 표기-->
+                                    <h5 sec:authorize="isAuthenticated()" class="card-title" th:text="${username}"
+                                        style="color: #0a53be; font-size: 170%; font-weight: bold">
+                                        홍길동
+                                    </h5>
+
+                                    <!-- 닉네임 아래에 권한 표기-->
+                                    <div class="mt-3">
+                                        <button type="button" sec:authorize="hasRole('ROLE_USER')" class="btn btn-outline-secondary btn-sm" disabled>USER</button>
+                                        <button type="button" sec:authorize="hasRole('ROLE_STUDENT_MANAGER')" class="btn btn-outline-primary btn-sm" disabled>STUDENT_MANAGER</button>
+                                        <button type="button" sec:authorize="hasRole('ROLE_DORMITORY_MANAGER')" class="btn btn-outline-primary btn-sm" disabled>DORMITORY_MANAGER</button>
+                                        <button type="button" sec:authorize="hasRole('ROLE_STAFF_MANAGER')" class="btn btn-outline-primary btn-sm" disabled>STAFF_MANAGER</button>
+                                        <button type="button" sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-outline-danger btn-sm" disabled>ADMIN</button>
+                                    </div>
                                 </div>
                             </div>
 
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
-                                    <a th:href="@{/boards/student}">학생회관 게시판</a>
+                                    <a class="noEmphasisURL" th:href="@{/boards/student}">
+                                        <img src="/icon/board1.png" class="card-img-top mx-auto mt-4 d-block" alt="profile" style="height: 7em; width: 7em">
+                                        <div class="card-body">
+                                            <h5 class="card-title">학생회관</h5>
+                                        </div>
+                                    </a>
                                 </li>
                                 <li class="list-group-item">
-                                    <a th:href="@{/cafeteria/dormitory}">복지관 게시판</a>
+                                    <img src="/icon/board2.png" class="card-img-top mx-auto mt-4 d-block" alt="profile" style="height: 7em; width: 7em">
+                                    <div class="card-body">
+                                        <h5 class="card-title">복지동</h5>
+                                    </div>
                                 </li>
                                 <li class="list-group-item">
-                                    <a th:href="@{/cafeteria/staff}">방목관 게시판</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <a th:href="@{/cafeteria/staff}">전체 게시판</a>
+                                    <img src="/icon/board3.png" class="card-img-top mx-auto mt-4 d-block" alt="profile" style="height: 7em; width: 7em">
+                                    <div class="card-body">
+                                        <h5 class="card-title">방목관</h5>
+                                    </div>
                                 </li>
 
                             </ul>

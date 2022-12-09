@@ -8,6 +8,7 @@ import org.peaktime.repository.BoardRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -33,6 +34,11 @@ public class BoardService {
     public List<Board> getBoardsInToday(Cafeteria cafeteria) {
         // Cafeteria ENUM 을 통해서 특정 보드를 찾은 후 반환.
 //        return boardRepository.findByCafeteria(cafeteria);
+
+        List<Board> boardList = boardRepository.findByCafeteriaAndDateTime(cafeteria, LocalDate.now());
+        if (boardList.isEmpty()) {
+            return new ArrayList<>();
+        }
 
         // 식당 종류와 오늘 날짜를 기준으로 조회.
         return boardRepository.findByCafeteriaAndDateTime(cafeteria, LocalDate.now());

@@ -59,15 +59,20 @@ public class BoardController {
     public String getSdtBoards(Model model,
                                Principal principal) {
 
-        // 혹시 로그인한 객체가 있을 경우,
-        if (principal != null) {
-            String email = principal.getName();
-            String username = memberService.usernameFindByEmail(email);
-            model.addAttribute("username", username);
-        }
+//        // 혹시 로그인한 객체가 있을 경우,
+//        if (principal != null) {
+//            String email = principal.getName();
+//            String username = memberService.usernameFindByEmail(email);
+//            model.addAttribute("username", username);
+//        }
 
+        // 게시물 리스트
         List<Board> boardList = boardService.getBoardsInToday(Cafeteria.STUDENT);
         model.addAttribute("boardList", boardList);
+
+        // 별점
+        Double todaySdtMenuScoreScore = menuService.todaySdtMenuScore();
+        model.addAttribute("todayScore", todaySdtMenuScoreScore);
 
         return "boards/student_board";
     }

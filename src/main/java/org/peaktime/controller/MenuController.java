@@ -2,7 +2,6 @@ package org.peaktime.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.peaktime.dto.MenuCreateDto;
-import org.peaktime.entity.SdtMenu;
 import org.peaktime.service.MenuService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

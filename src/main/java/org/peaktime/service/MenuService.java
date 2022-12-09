@@ -34,17 +34,25 @@ public class MenuService {
     }
 
     /**
-     * ID 값으로 메뉴 찾기.
+     * 오늘 메뉴 스코어 가져오기.
      */
     @Transactional
-    public SdtMenu findSdtMenu(Integer menuId) {
-        Optional<SdtMenu> byIdSdtMenu = sdtMenuRepository.findById(menuId);
+    public Double todaySdtMenuScore() {
 
-        if (byIdSdtMenu.isEmpty()) {
-            throw new EntityNotFoundException("해당 ID의 메뉴는 존재하지 않습니다.");
+        // 해당하는 날짜에 메뉴가 존재하지 않을 경우.
+        if (!sdtMenuRepository.existsByDateTime(LocalDate.now())) {
+            throw new EntityNotFoundException("해당 날짜의 메뉴가 존재하지 않습니다.");
         }
 
-        return byIdSdtMenu.get();
+        SdtMenu sdtMenu = sdtMenuRepository.findByDateTime(LocalDate.now()).orElseThrow(
+                () -> new EntityNotFoundException("해당 날짜의 메뉴가 없습니다.")
+        );
+
+        if (sdtMenu.getScore() == null) {
+            return 0.0;
+        }
+
+        return sdtMenu.getScore();
     }
 
 
@@ -60,10 +68,12 @@ public class MenuService {
         }
 
         // 날짜를 통해서 메뉴 가져오기.
-        SdtMenu menu = sdtMenuRepository.findByDateTime(today);
+        SdtMenu sdtMenu = sdtMenuRepository.findByDateTime(LocalDate.now()).orElseThrow(
+                () -> new EntityNotFoundException("해당 날짜의 메뉴가 없습니다.")
+        );
 
         // 스코어 누적 갱신.
-        menu.updateScore(score);
+        sdtMenu.updateScore(score);
     }
 
     /**

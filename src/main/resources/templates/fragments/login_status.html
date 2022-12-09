@@ -5,9 +5,13 @@
       layout:decorate="~{layouts/layout}">
 
     <div th:fragment="login_status">
-        <div class="container" sec:authorize="isAuthenticated()">
-            <p th:text="|${username} 님 환영합니다:)|" class="border rounded mx-1 bg-white"
-               style="text-align: center">테스트</p>
+        <div th:if="${username == null}">
+        </div>
+        <div th:unless="${username == null}">
+            <div class="container" sec:authorize="isAuthenticated()">
+                <p th:text="|${username} 님 환영합니다:)|" class="border rounded mx-1 bg-white"
+                   style="text-align: center">테스트</p>
+            </div>
         </div>
     </div>
 
