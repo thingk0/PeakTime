@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.peaktime.entity.base.BaseEntity;
+import org.peaktime.dto.menu.MenuUpdateDto;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -34,6 +34,12 @@ public class SdtMenu {
         this.menu = menu;
         this.dateTime = dateTime;
         this.week = dateTime.get(WeekFields.ISO.weekOfYear());
+    }
+
+    public void updateMenu(MenuUpdateDto menuUpdateDto) {
+        this.menu = menuUpdateDto.getMenu();
+        this.dateTime = menuUpdateDto.getDate();
+        this.week = menuUpdateDto.getDate().get(WeekFields.ISO.weekOfYear());
     }
 
     public void updateScore(Double point) {

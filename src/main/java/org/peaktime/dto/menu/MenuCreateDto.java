@@ -1,4 +1,4 @@
-package org.peaktime.dto;
+package org.peaktime.dto.menu;
 
 import lombok.Builder;
 import lombok.Getter;

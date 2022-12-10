@@ -17,6 +17,67 @@
                     }
                 });
             });
+
+
+
+            function isCreateShow() {
+                let createDisplay = document.getElementById("menu-create-display");
+                let modifyDisplay = document.getElementById("menu-modify-display");
+                let deleteDisplay = document.getElementById("menu-delete-display");
+
+                if (createDisplay.style.display === 'none') {
+
+                    createDisplay.style.display = 'block'
+                    document.getElementById("menu-create").style.border = "2px solid green";
+
+                    // 나머지는 숨기기
+                    modifyDisplay.style.display = 'none';
+                    document.getElementById("menu-modify").style.border = "";
+
+                    deleteDisplay.style.display = 'none';
+                    document.getElementById("menu-delete").style.border = "";
+                }
+            }
+
+            function isModifyShow() {
+                let createDisplay = document.getElementById("menu-create-display");
+                let modifyDisplay = document.getElementById("menu-modify-display");
+                let deleteDisplay = document.getElementById("menu-delete-display");
+
+                if (modifyDisplay.style.display === 'none') {
+
+                    modifyDisplay.style.display = 'block'
+                    document.getElementById("menu-modify").style.border = "2px solid blue";
+
+                    // 나머지는 숨기기
+                    createDisplay.style.display = 'none';
+                    document.getElementById("menu-create").style.border = "";
+
+                    deleteDisplay.style.display = 'none';
+                    document.getElementById("menu-delete").style.border = "";
+                }
+            }
+
+            function isDeleteShow() {
+                let createDisplay = document.getElementById("menu-create-display");
+                let modifyDisplay = document.getElementById("menu-modify-display");
+                let deleteDisplay = document.getElementById("menu-delete-display");
+
+                if (deleteDisplay.style.display === 'none') {
+
+                    deleteDisplay.style.display = 'block'
+                    document.getElementById("menu-delete").style.border = "2px solid red";
+
+                    // 나머지는 숨기기
+                    createDisplay.style.display = 'none';
+                    document.getElementById("menu-create").style.border = "";
+
+                    modifyDisplay.style.display = 'none';
+                    document.getElementById("menu-modify").style.border = "";
+
+                }
+            }
+
         </script>
     </th:block>
 
@@ -74,7 +135,7 @@
         <!-- 메뉴 리스트 -->
         <div class="container mt-3 mb-3">
                 <div class="border bg-white rounded">
-                    <div th:each="menu : ${menu}" class="row mx-1 mt-4 mb-4">
+                    <div th:if="${menuList.size() > 1}" th:each="menu : ${menuList}" class="row mx-1 mt-4 mb-4">
                         <div class="col-5">
                             <div th:if="${#temporals.format(today, 'MM-dd') == #temporals.format(menu.dateTime, 'MM-dd')}">
                                 <h4 class="today menu_print" th:text="|${#temporals.format(menu.dateTime, 'MM.dd')} (${#temporals.format(menu.dateTime, 'E')})|"></h4>
@@ -92,24 +153,56 @@
                             </div>
                         </div>
                     </div>
+                    <div th:unless="${menuList.size() > 1}" class="mx-1 mt-4 mb-4">
+                        <div th:text="${#temporals.format(today, 'MM-dd E')}"
+                             class="center_alignment"
+                             style="font-size: x-large; font-weight: bold; color: #0027ff"></div>
+                        <div class="center_alignment">
+                            <img alt="menu" src="/icon/menu.png"
+                                 style="width: 60%; height: auto">
+                        </div>
+                        <div class="center_alignment"
+                        style="font-size: x-large; font-weight: bold; color: #6f42c1">
+                            메뉴를 준비중입니다.....</div>
+                    </div>
                 </div>
             </div>
 
         <!-- 학생식당 관리자: 메뉴 추가 기능 -->
         <div sec:authorize="hasRole('ROLE_STUDENT_MANAGER')">
-                <div class="container mt-3 mb-3">
-                    <div class="border bg-white rounded">
-                        <p class="d-flex justify-content-center"
-                           style="font-weight: bold">
-                            MENU SETTING
-                        </p>
 
-                        <!-- 메뉴 추가하기 -->
+            <div class="container">
+                <div class="row mx-1">
+                    <div id="menu-create" onclick="isCreateShow()" class="col menu-setting-btn"
+                    style="border: 2px solid green">
+                        메뉴 생성
+                    </div>
+                    <div id="menu-modify" onclick="isModifyShow()" class="col menu-setting-btn">
+                        메뉴 수정
+                    </div>
+                    <div id="menu-delete" onclick="isDeleteShow()" class="col menu-setting-btn">
+                        메뉴 삭제
+                    </div>
+                </div>
+            </div>
+
+            <!-- 메뉴 추가 -->
+            <div id="menu-create-display" class="container mt-3 mb-3">
+                <div class="border bg-white rounded">
+
                         <form role="form" method="post" th:action="@{/menu/student/create}">
+
+                            <div class="d-flex mt-3 mb-3 mx-2 btn btn-outline-success justify-content-center">
+                                메뉴 추가하기
+                            </div>
+
                             <!-- 날짜 입력-->
                             <div class="row mx-2 mb-2">
-                                <div class="col-3 border rounded">
-                                    <div style="text-align: center; font-weight: bold">
+                                <div class="col-3 border rounded border-success">
+                                    <div style="
+                                    text-align: center;
+                                     font-weight: bold;
+                                     color: green">
                                         DATE
                                     </div>
                                 </div>
@@ -117,10 +210,14 @@
                                     <input required type="date" name="date" style="width: 100%">
                                 </div>
                             </div>
+
                             <!-- 메뉴 입력-->
                             <div class="row mx-2 mb-1">
-                                <div class="col-3 border rounded">
-                                    <div style="text-align: center; font-weight: bold">
+                                <div class="col-3 border rounded border-success">
+                                    <div style="
+                                    text-align: center;
+                                     font-weight: bold;
+                                     color: green">
                                         MENU
                                     </div>
                                 </div>
@@ -128,20 +225,95 @@
                                     <input required type="text" name="menu" style="width: 100%">
                                 </div>
                             </div>
-                            <!-- 버튼 -->
-                            <div class="d-flex justify-content-end mb-1" style="margin-right: 1em">
-                                <button type="submit" class="btn btn-outline-primary btn-sm mt-2 mb-1">저장하기</button>
-                            </div>
-                        </form>
 
+                            <div class="d-flex justify-content-end mb-1" style="margin-right: 1em">
+                                <button type="submit" class="btn btn-outline-success btn-sm mt-2 mb-1">저장하기</button>
+                            </div>
+
+                        </form>
                     </div>
+            </div>
+
+            <!-- 메뉴 수정 -->
+            <div id="menu-modify-display" class="container mt-3 mb-3" style="display: none">
+                <div class="border bg-white rounded">
+
+                    <form role="form" method="post" th:action="@{/menu/student/modify}">
+
+                        <div class="d-flex mt-3 mb-3 mx-2 btn btn-outline-primary justify-content-center">
+                            메뉴 수정하기
+                        </div>
+
+                        <!-- 날짜 입력-->
+                        <div class="row mx-2 mb-2">
+                            <div class="col-3 border rounded border-primary">
+                                <div style="
+                                    text-align: center;
+                                     font-weight: bold;
+                                     color: #002980">
+                                    DATE
+                                </div>
+                            </div>
+                            <div class="col-9">
+                                <input required type="date" name="date" style="width: 100%">
+                            </div>
+                        </div>
+
+                        <!-- 메뉴 입력-->
+                        <div class="row mx-2 mb-1">
+                            <div class="col-3 border rounded border-primary">
+                                <div style="
+                                    text-align: center;
+                                     font-weight: bold;
+                                     color: #002980">
+                                    MENU
+                                </div>
+                            </div>
+                            <div class="col-9">
+                                <input required type="text" name="menu" style="width: 100%">
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end mb-1" style="margin-right: 1em">
+                            <button type="submit" class="btn btn-outline-primary btn-sm mt-2 mb-1">수장하기</button>
+                        </div>
+
+                    </form>
                 </div>
+            </div>
+
+            <!-- 메뉴 삭제 -->
+            <div id="menu-delete-display" class="container mt-3 mb-3" style="display: none">
+                <div class="border bg-white rounded">
+
+                    <form role="form" method="post" th:action="@{/menu/student/delete}">
+
+                        <div class="d-flex mt-3 mb-3 mx-2 btn btn-outline-danger justify-content-center">
+                            메뉴 삭제하기
+                        </div>
+
+
+                        <!-- 날짜 입력-->
+                        <div class="row mx-2 mb-2">
+                            <div class="col">
+                                <input required type="date" name="date" style="width: 100%">
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end mb-1" style="margin-right: 1em">
+                            <button type="submit" class="btn btn-outline-danger btn-sm mt-2 mb-1">삭제하기</button>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
         </div>
 
         <!-- 리뷰 남기기-->
         <!-- 인증된 사용자일 경우에만 리뷰 남길 수 있도록 -->
         <div id="review">
-                <div sec:authorize="hasRole('ROLE_USER')">
+                <div sec:authorize="hasRole('ROLE_USER')" th:if="${menuList.size() > 1}">
                     <form class="container star" th:action="@{/boards/student/create}"
                           role="form" method="post">
 
@@ -175,8 +347,21 @@
                     </form>
                 </div>
 
+            <!-- 매니저한테는 보일 필요가 없음-->
+            <div sec:authorize="!hasRole('ROLE_STUDENT_MANAGER')" th:unless="${menuList.size() > 1}">
+                <form class="container mb-1" name="star" method="post">
+                    <!-- 별점 표기-->
+                    <div class="review container form-control">
+                        <div class="mt-2 mb-2 border d-flex justify-content-center rounded"
+                             style="background: #e1e1e1">
+                            <div style="font-size: large;">메뉴가 준비중입니다.</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
                 <!-- 인증이 안 된 사용자는 리뷰 남길 수 없도록 disabled -->
-                <div sec:authorize="isAnonymous()">
+                <div sec:authorize="isAnonymous()" th:if="${menuList.size() > 1}">
                     <form class="container" name="star" id="star" method="post">
                         <!-- 별점 표기-->
                         <div class="review container form-control">
@@ -197,6 +382,9 @@
                         </div>
                     </form>
                 </div>
+
+
+
             </div>
 
     </div>

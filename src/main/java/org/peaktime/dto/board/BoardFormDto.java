@@ -1,9 +1,7 @@
-package org.peaktime.dto;
+package org.peaktime.dto.board;
 
 import lombok.*;
 import javax.validation.constraints.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter

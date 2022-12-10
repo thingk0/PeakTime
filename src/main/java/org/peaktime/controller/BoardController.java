@@ -2,10 +2,9 @@ package org.peaktime.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.peaktime.constant.Cafeteria;
-import org.peaktime.dto.BoardCreateDto;
+import org.peaktime.dto.board.BoardCreateDto;
 import org.peaktime.entity.Board;
 import org.peaktime.service.BoardService;
-import org.peaktime.service.MemberService;
 import org.peaktime.service.MenuService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +23,6 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
-    private final MemberService memberService;
     private final MenuService menuService;
 
     /**
@@ -58,13 +56,6 @@ public class BoardController {
     @GetMapping(value = "/student")
     public String getSdtBoards(Model model,
                                Principal principal) {
-
-//        // 혹시 로그인한 객체가 있을 경우,
-//        if (principal != null) {
-//            String email = principal.getName();
-//            String username = memberService.usernameFindByEmail(email);
-//            model.addAttribute("username", username);
-//        }
 
         // 게시물 리스트
         List<Board> boardList = boardService.getBoardsInToday(Cafeteria.STUDENT);

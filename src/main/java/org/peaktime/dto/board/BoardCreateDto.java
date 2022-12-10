@@ -1,4 +1,4 @@
-package org.peaktime.dto;
+package org.peaktime.dto.board;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

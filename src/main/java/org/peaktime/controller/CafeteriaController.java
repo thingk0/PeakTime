@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -37,10 +38,15 @@ public class CafeteriaController {
             model.addAttribute("username", username);
         }
 
-        // 학생식당 메뉴 리스트.
-        List<SdtMenu> sdtMenus = menuService.getAllSdtMenus(LocalDate.now());
+        // 토요일이나 일요일 경우
+        if (LocalDate.now().getDayOfWeek().getValue() == 6 || LocalDate.now().getDayOfWeek().getValue() == 7) {
+            model.addAttribute("menuList", new ArrayList<>());
+        } else {
+            // 평일 - 학생식당 메뉴 리스트.
+            List<SdtMenu> sdtMenus = menuService.getAllSdtMenus(LocalDate.now());
+            model.addAttribute("menuList", sdtMenus);
+        }
 
-        model.addAttribute("menu", sdtMenus);
         model.addAttribute("today", LocalDate.now());
         model.addAttribute("status", cafeteriaStatus.toString());
 

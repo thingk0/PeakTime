@@ -1,7 +1,8 @@
 package org.peaktime.service;
 
 import lombok.RequiredArgsConstructor;
-import org.peaktime.dto.MenuCreateDto;
+import org.peaktime.dto.menu.MenuCreateDto;
+import org.peaktime.dto.menu.MenuUpdateDto;
 import org.peaktime.entity.SdtMenu;
 import org.peaktime.repository.SdtMenuRepository;
 import org.springframework.stereotype.Service;
@@ -95,4 +96,41 @@ public class MenuService {
         sdtMenuRepository.save(sdtMenu);
     }
 
+    /**
+     * 메뉴 수정 로직.
+     */
+    @Transactional
+    public void updateSdtMenu(MenuUpdateDto menuUpdateDto) {
+
+        // 먼저, 해당하는 날짜의 메뉴가 있는지 조회.
+        SdtMenu sdtMenu = sdtMenuRepository.findByDateTime(menuUpdateDto.getDate()).orElseThrow(
+                // 메뉴가 없다면, 예외처리
+                () -> new EntityNotFoundException("해당하는 날짜에 메뉴가 없습니다.")
+        );
+
+        // 메뉴가 존재한다면 수정.
+        sdtMenu.updateMenu(menuUpdateDto);
+    }
+
+    /**
+     *  오늘 메뉴 존재하는지?
+     */
+    @Transactional
+    public boolean isExistTodayMenu() {
+        return sdtMenuRepository.existsByDateTime(LocalDate.now());
+    }
+
+    /**
+     * 날짜로 해당 메뉴 삭제하기
+     */
+    @Transactional
+    public void deleteSdtMenu(LocalDate date) {
+        Optional<SdtMenu> byDateTime = sdtMenuRepository.findByDateTime(date);
+
+        if (byDateTime.isEmpty()) {
+            throw new EntityNotFoundException("해당 날짜에 메뉴가 존재하지 않습니다.");
+        }
+
+        byDateTime.ifPresent(sdtMenuRepository::delete);
+    }
 }

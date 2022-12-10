@@ -2,7 +2,7 @@ package org.peaktime.service;
 
 import lombok.RequiredArgsConstructor;
 import org.peaktime.constant.Cafeteria;
-import org.peaktime.dto.BoardCreateDto;
+import org.peaktime.dto.board.BoardCreateDto;
 import org.peaktime.entity.Board;
 import org.peaktime.repository.BoardRepository;
 import org.springframework.stereotype.Service;
