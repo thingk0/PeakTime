@@ -29,13 +29,17 @@
 
                     createDisplay.style.display = 'block'
                     document.getElementById("menu-create").style.border = "2px solid green";
+                    document.getElementById("menu-create").style.opacity = "100%";
 
                     // 나머지는 숨기기
                     modifyDisplay.style.display = 'none';
                     document.getElementById("menu-modify").style.border = "";
+                    document.getElementById("menu-modify").style.opacity = "60%";
 
                     deleteDisplay.style.display = 'none';
                     document.getElementById("menu-delete").style.border = "";
+                    document.getElementById("menu-delete").style.opacity = "60%";
+
                 }
             }
 
@@ -48,13 +52,16 @@
 
                     modifyDisplay.style.display = 'block'
                     document.getElementById("menu-modify").style.border = "2px solid blue";
+                    document.getElementById("menu-modify").style.opacity = "100%";
 
                     // 나머지는 숨기기
                     createDisplay.style.display = 'none';
                     document.getElementById("menu-create").style.border = "";
+                    document.getElementById("menu-create").style.opacity = "60%";
 
                     deleteDisplay.style.display = 'none';
                     document.getElementById("menu-delete").style.border = "";
+                    document.getElementById("menu-delete").style.opacity = "60%";
                 }
             }
 
@@ -67,13 +74,16 @@
 
                     deleteDisplay.style.display = 'block'
                     document.getElementById("menu-delete").style.border = "2px solid red";
+                    document.getElementById("menu-delete").style.opacity = "100%";
 
                     // 나머지는 숨기기
                     createDisplay.style.display = 'none';
                     document.getElementById("menu-create").style.border = "";
+                    document.getElementById("menu-create").style.opacity = "60%";
 
                     modifyDisplay.style.display = 'none';
                     document.getElementById("menu-modify").style.border = "";
+                    document.getElementById("menu-modify").style.border = "60%";
 
                 }
             }
@@ -135,7 +145,7 @@
         <!-- 메뉴 리스트 -->
         <div class="container mt-3 mb-3">
                 <div class="border bg-white rounded">
-                    <div th:if="${menuList.size() > 1}" th:each="menu : ${menuList}" class="row mx-1 mt-4 mb-4">
+                    <div th:if="${menuList.size() >= 1}" th:each="menu : ${menuList}" class="row mx-1 mt-4 mb-4">
                         <div class="col-5">
                             <div th:if="${#temporals.format(today, 'MM-dd') == #temporals.format(menu.dateTime, 'MM-dd')}">
                                 <h4 class="today menu_print" th:text="|${#temporals.format(menu.dateTime, 'MM.dd')} (${#temporals.format(menu.dateTime, 'E')})|"></h4>
@@ -153,7 +163,7 @@
                             </div>
                         </div>
                     </div>
-                    <div th:unless="${menuList.size() > 1}" class="mx-1 mt-4 mb-4">
+                    <div th:unless="${menuList.size() >= 1}" class="mx-1 mt-4 mb-4">
                         <div th:text="${#temporals.format(today, 'MM-dd E')}"
                              class="center_alignment"
                              style="font-size: x-large; font-weight: bold; color: #0027ff"></div>
@@ -173,14 +183,14 @@
 
             <div class="container">
                 <div class="row mx-1">
-                    <div id="menu-create" onclick="isCreateShow()" class="col menu-setting-btn"
+                    <div id="menu-create" onclick="isCreateShow()" class="col btn btn-sm btn-success mx-1"
                     style="border: 2px solid green">
                         메뉴 생성
                     </div>
-                    <div id="menu-modify" onclick="isModifyShow()" class="col menu-setting-btn">
+                    <div id="menu-modify" onclick="isModifyShow()" class="col btn btn-sm btn-primary mx-1">
                         메뉴 수정
                     </div>
-                    <div id="menu-delete" onclick="isDeleteShow()" class="col menu-setting-btn">
+                    <div id="menu-delete" onclick="isDeleteShow()" class="col btn btn-sm btn-danger mx-1">
                         메뉴 삭제
                     </div>
                 </div>

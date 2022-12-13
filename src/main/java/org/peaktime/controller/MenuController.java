@@ -30,8 +30,12 @@ public class MenuController {
                 .menu(menu)
                 .build();
 
-        menuService.saveSdtMenu(menuCreateDto);
+        if (menuService.findSdtMenuByDateTime(menuCreateDto.getDate())) {
+            model.addAttribute("alreadyExists", "해당 메뉴가 이미 존재합니다.");
+            return "redirect:/";
+        }
 
+        menuService.saveSdtMenu(menuCreateDto);
         return "redirect:/";
     }
 

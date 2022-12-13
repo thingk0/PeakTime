@@ -15,6 +15,8 @@ public interface SdtMenuRepository extends JpaRepository<SdtMenu, Integer> {
     List<SdtMenu> findAll();
     Optional<SdtMenu> findByMenuAndDateTime(String menu, LocalDate dateTime);
 
+    Optional<SdtMenu> findSdtMenuByDateTime(LocalDate date);
+
     Optional<SdtMenu> findByDateTime(LocalDate dateTime);
     boolean existsByDateTime(LocalDate datetime);
 

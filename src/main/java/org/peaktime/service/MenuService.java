@@ -34,6 +34,14 @@ public class MenuService {
         return sdtMenuRepository.findAllByWeekEquals(thisWeek);
     }
 
+    @Transactional(readOnly = true)
+    public SdtMenu getTodaySdtMenu() {
+        return sdtMenuRepository.findSdtMenuByDateTime(LocalDate.now()).orElseThrow(
+                () -> new EntityNotFoundException("찾을 수 없습니다.")
+        );
+    }
+
+
     /**
      * 오늘 메뉴 스코어 가져오기.
      */
@@ -41,30 +49,37 @@ public class MenuService {
     public Double todaySdtMenuScore() {
 
         // 해당하는 날짜에 메뉴가 존재하지 않을 경우.
-        if (!sdtMenuRepository.existsByDateTime(LocalDate.now())) {
-            throw new EntityNotFoundException("해당 날짜의 메뉴가 존재하지 않습니다.");
-        }
+//        if (!sdtMenuRepository.existsByDateTime(LocalDate.now())) {
+//            throw new EntityNotFoundException("해당 날짜의 메뉴가 존재하지 않습니다.");
+//        }
+//
+//        try {
+//            boolean isExistsTodaySdtMenu = sdtMenuRepository.existsByDateTime(LocalDate.now());
+//        } catch (EntityNotFoundException e) {
+//
+//        }
 
-        SdtMenu sdtMenu = sdtMenuRepository.findByDateTime(LocalDate.now()).orElseThrow(
-                () -> new EntityNotFoundException("해당 날짜의 메뉴가 없습니다.")
-        );
-
-        if (sdtMenu.getScore() == null) {
+        Optional<SdtMenu> byDateTime = sdtMenuRepository.findByDateTime(LocalDate.now());
+        if (byDateTime.isEmpty()) {
             return 0.0;
         }
 
-        return sdtMenu.getScore();
+//        if (sdtMenu.getScore() == null) {
+//            return 0.0;
+//        }
+
+        return byDateTime.get().getScore();
     }
 
 
     /**
-     *  메뉴 스코어 갱신 로직.
+     * 메뉴 스코어 갱신 로직.
      */
     @Transactional
-    public void updateSdtMenuScore(LocalDate today, Double score) {
+    public void updateSdtMenuScore(Double score) {
 
         // 해당하는 날짜에 메뉴가 존재하지 않을 경우.
-        if (!sdtMenuRepository.existsByDateTime(today)) {
+        if (!sdtMenuRepository.existsByDateTime(LocalDate.now())) {
             throw new EntityNotFoundException("해당 날짜의 메뉴가 존재하지 않습니다.");
         }
 
@@ -113,7 +128,7 @@ public class MenuService {
     }
 
     /**
-     *  오늘 메뉴 존재하는지?
+     * 오늘 메뉴 존재하는지?
      */
     @Transactional
     public boolean isExistTodayMenu() {
@@ -132,5 +147,13 @@ public class MenuService {
         }
 
         byDateTime.ifPresent(sdtMenuRepository::delete);
+    }
+
+    /**
+     * 메뉴 추가 전 특정 날짜의 메뉴가 이미 존재하는지 조사.
+     */
+    @Transactional(readOnly = true)
+    public boolean findSdtMenuByDateTime(LocalDate date) {
+        return sdtMenuRepository.existsByDateTime(date);
     }
 }

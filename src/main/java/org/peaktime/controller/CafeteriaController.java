@@ -28,15 +28,15 @@ public class CafeteriaController {
     @GetMapping(value = "/student")
     public String cafeteriaStudent(Model model, Principal principal) {
 
-        // 현재 식당 혼잡도 현황.
-        String cafeteriaStatus = cafeteriaService.getCafeteriaStatus();
-
         // 혹시 로그인한 객체가 있을 경우,
         if (principal != null) {
             String email = principal.getName();
             String username = memberService.usernameFindByEmail(email);
             model.addAttribute("username", username);
         }
+
+        // 현재 식당 혼잡도 현황.
+        String cafeteriaStatus = cafeteriaService.getCafeteriaStatus();
 
         // 토요일이나 일요일 경우
         if (LocalDate.now().getDayOfWeek().getValue() == 6 || LocalDate.now().getDayOfWeek().getValue() == 7) {
@@ -48,7 +48,7 @@ public class CafeteriaController {
         }
 
         model.addAttribute("today", LocalDate.now());
-        model.addAttribute("status", cafeteriaStatus.toString());
+        model.addAttribute("status", cafeteriaStatus);
 
         return "cafeteria/student";
     }

@@ -71,7 +71,8 @@ public class CafeteriaService {
         DocumentReference inFromFireStore = firestore.collection("RaspberryPi").document("in");
         Collection<Object> in = Objects.requireNonNull(inFromFireStore.get().get().getData()).values();
         for (Object value : in) {
-            inout[0] = Integer.parseInt((String) value);
+            String result = value.equals("") ? "0" : (String) value;
+            inout[0] = Integer.parseInt(result);
             break;
         }
 
@@ -79,7 +80,8 @@ public class CafeteriaService {
         DocumentReference outFromFireStore = firestore.collection("RaspberryPi").document("out");
         Collection<Object> out = Objects.requireNonNull(outFromFireStore.get().get().getData()).values();
         for (Object value : out) {
-            inout[1] = Integer.parseInt((String) value);
+            String result = value.equals("") ? "0" : (String) value;
+            inout[1] = Integer.parseInt(result);
             break;
         }
 

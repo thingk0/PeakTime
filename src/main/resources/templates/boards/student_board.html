@@ -1,7 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layouts/layout}">
 
     <th:block layout:fragment="css">
@@ -19,13 +18,19 @@
     <div layout:fragment="content">
 
         <!-- 오늘의 평점 -->
-        <div class="mb-3 mx-3">
+        <div class="mb-2 mx-3">
+
+            <div class="d-flex justify-content-center border rounded bg-white mb-1">
+                <div th:text="${todaySdtMenu.getMenu()}" class="menu_print pt-1 pb-1"
+                style="font-size: x-large; font-weight: bold; color: #063c7c"></div>
+            </div>
+
             <!-- 1점 미만 -->
             <div th:if="${todayScore < 1.0}">
                 <div class="d-flex justify-content-center border rounded bg-white pt-1 pb-1">
-                    <img src="/icon/star_full.png" style="width: 10%">
-                    <div th:text="${#numbers.formatDecimal(todayScore, 0, 2)}"
-                         style="font-size: 150%; margin-left: 0.5em">
+                    <img src="/icon/star_half.png" style="width: 10%">
+                    <div style="font-size: 150%; margin-left: 0.5em">
+                        0.0
                     </div>
                 </div>
             </div>
@@ -130,6 +135,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
         <div class="container">
@@ -148,6 +154,14 @@
                         </tr>
                     </tbody>
                 </table>
+                <div th:if="${boardList.size() == 0}" style="padding-top: 30%; padding-bottom: 50%">
+                    <div class="center_alignment">
+                        <img src="/icon/wait.png" style="width: 40%; height: auto; padding-bottom: 5%"/>
+                    </div>
+                    <div class="center_alignment"
+                         style="font-size: large; font-weight: bold; color: #6f42c1">
+                        현재 게시판을 불러올 수 없습니다.....</div>
+                </div>
             </div>
         </div>
         <div>

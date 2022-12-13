@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.peaktime.constant.Cafeteria;
 import org.peaktime.dto.board.BoardCreateDto;
 import org.peaktime.entity.Board;
+import org.peaktime.entity.SdtMenu;
 import org.peaktime.service.BoardService;
 import org.peaktime.service.MenuService;
 import org.springframework.stereotype.Controller;
@@ -35,7 +36,7 @@ public class BoardController {
 
 
         // 오늘 날짜의 메뉴 스코어를 갱신.
-        menuService.updateSdtMenuScore(LocalDate.now(), score);
+        menuService.updateSdtMenuScore(score);
 
         // DTO 생성.
         BoardCreateDto createDto = BoardCreateDto.builder()
@@ -64,6 +65,10 @@ public class BoardController {
         // 별점
         Double todaySdtMenuScoreScore = menuService.todaySdtMenuScore();
         model.addAttribute("todayScore", todaySdtMenuScoreScore);
+
+        // 오늘의 메뉴
+        SdtMenu todaySdtMenu = menuService.getTodaySdtMenu();
+        model.addAttribute("todaySdtMenu", todaySdtMenu);
 
         return "boards/student_board";
     }
