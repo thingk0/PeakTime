@@ -4,28 +4,38 @@ import lombok.RequiredArgsConstructor;
 import org.peaktime.constant.Cafeteria;
 import org.peaktime.dto.board.BoardCreateDto;
 import org.peaktime.entity.Board;
+import org.peaktime.entity.SdtMenu;
 import org.peaktime.repository.BoardRepository;
+import org.peaktime.repository.SdtMenuRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final SdtMenuRepository sdtMenuRepository;
 
     /**
      * 보드 저장
      */
     public void saveBoard(BoardCreateDto boardCreateDto) {
-        // Entity 로 변환.
-        Board board = boardCreateDto.toEntity();
+        // 오늘 학식 메뉴 가져오기.
+        Optional<SdtMenu> todayMenu = sdtMenuRepository.findByDateTime(LocalDate.now());
 
-        // Entity 저장.
-        boardRepository.save(board);
+        if (todayMenu.isPresent()) {
+            // Entity 로 변환.
+            Board board = boardCreateDto.toEntity(todayMenu.get());
+            // Entity 저장.
+            boardRepository.save(board);
+        } else {
+            throw new IllegalStateException("게시글 저장 실패");
+        }
     }
 
     /**

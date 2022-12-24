@@ -95,7 +95,6 @@
 
         <!-- 식당 리스트 -->
         <div class="container">
-
             <div class="row mx-1">
                 <div class="col border text-center rounded bg-white">
                     <h4 class="mt-1 mb-1">학생회관</h4>
@@ -120,7 +119,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col border text-center rounded mx-2">
                     <a class="cafeteria">
                         <h4 class="mt-1 mb-1">방목관</h4>
@@ -129,7 +127,6 @@
                         </div>
                     </a>
                 </div>
-
                 <div class="col border text-center rounded">
                     <a class="cafeteria">
                         <h4 class="mt-1 mb-1">복지동</h4>
@@ -139,12 +136,12 @@
                     </a>
                 </div>
             </div>
-
         </div>
 
         <!-- 메뉴 리스트 -->
         <div class="container mt-3 mb-3">
                 <div class="border bg-white rounded">
+                    <!-- 이번주 메뉴가 1개 이상일 경우 표시. -->
                     <div th:if="${menuList.size() >= 1}" th:each="menu : ${menuList}" class="row mx-1 mt-4 mb-4">
                         <div class="col-5">
                             <div th:if="${#temporals.format(today, 'MM-dd') == #temporals.format(menu.dateTime, 'MM-dd')}">
@@ -163,6 +160,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- 이번주 메뉴가 없으므로 나타내기 준비중 표시. -->
                     <div th:unless="${menuList.size() >= 1}" class="mx-1 mt-4 mb-4">
                         <div th:text="${#temporals.format(today, 'MM-dd E')}"
                              class="center_alignment"
@@ -180,7 +178,7 @@
 
         <!-- 학생식당 관리자: 메뉴 추가 기능 -->
         <div sec:authorize="hasRole('ROLE_STUDENT_MANAGER')">
-
+            <!-- 메뉴 관리 버튼 -->
             <div class="container">
                 <div class="row mx-1">
                     <div id="menu-create" onclick="isCreateShow()" class="col btn btn-sm btn-success mx-1"
@@ -316,14 +314,13 @@
 
                     </form>
                 </div>
-
             </div>
         </div>
 
         <!-- 리뷰 남기기-->
         <!-- 인증된 사용자일 경우에만 리뷰 남길 수 있도록 -->
         <div id="review">
-                <div sec:authorize="hasRole('ROLE_USER')" th:if="${menuList.size() > 1}">
+            <div sec:authorize="hasRole('ROLE_USER')" th:if="${menuList.size() > 1}">
                     <form class="container star" th:action="@{/boards/student/create}"
                           role="form" method="post">
 
@@ -370,8 +367,8 @@
                 </form>
             </div>
 
-                <!-- 인증이 안 된 사용자는 리뷰 남길 수 없도록 disabled -->
-                <div sec:authorize="isAnonymous()" th:if="${menuList.size() > 1}">
+            <!-- 인증이 안 된 사용자는 리뷰 남길 수 없도록 disabled -->
+            <div sec:authorize="isAnonymous()" th:if="${menuList.size() > 1}">
                     <form class="container" name="star" id="star" method="post">
                         <!-- 별점 표기-->
                         <div class="review container form-control">
@@ -388,15 +385,9 @@
                             <div class="review_btn">
                                 <button disabled type="button" class="btn btn-outline-secondary btn-sm mt-2 mb-1">리뷰 작성</button>
                             </div>
-
                         </div>
                     </form>
                 </div>
-
-
-
-            </div>
-
+        </div>
     </div>
-
 </html>

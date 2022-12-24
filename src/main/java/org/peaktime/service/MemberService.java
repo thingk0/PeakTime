@@ -51,18 +51,6 @@ public class MemberService implements UserDetailsService {
     }
 
     /**
-     * 이메일을 통해서 기존에 계정이 있는지를 확인하여 만약 중복될 경우 에러 발생.
-     */
-//    private void validateDuplicateMember(Member member) {
-//        memberRepository.findByEmail(member.getEmail()).orElseThrow(
-//                () -> new IllegalStateException("이미 가입된 회원입니다."));
-//
-//        if (memberRepository.existsByEmail(member.getEmail())) {
-//            throw new IllegalStateException("이미 존재하는 이메일입니다.");
-//        }
-//    }
-
-    /**
      * 권한 설정
      */
     @Transactional

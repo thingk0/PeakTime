@@ -4,7 +4,6 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layouts/layout}">
 
-    <!-- 로고 -->
     <div class="container" th:fragment="header">
 
         <nav class="navbar navbar-light">
@@ -37,13 +36,11 @@
                         <div class="card text-center">
                             <div sec:authorize="isAuthenticated()">
                                 <div class="card-body">
-
                                     <!-- 로그인한 사용자의 닉네임 표기-->
                                     <h5 sec:authorize="isAuthenticated()" class="card-title" th:text="${username}"
-                                        style="color: #063c7c; font-size: 170%; font-weight: bold">
-                                        홍길동
+                                            style="color: #063c7c; font-size: 170%; font-weight: bold">
+                                            홍길동
                                     </h5>
-
                                     <!-- 닉네임 아래에 권한 표기-->
                                     <div class="mt-3">
                                         <button type="button" sec:authorize="hasRole('ROLE_USER')" class="btn btn-outline-secondary btn-sm" disabled>USER</button>
@@ -76,17 +73,11 @@
                                         <h5 class="card-title">방목관</h5>
                                     </div>
                                 </li>
-
                             </ul>
-
                         </div>
-
                     </div>
                 </div>
             </div>
         </nav>
-
-
     </div>
-
 </html>

@@ -3,6 +3,7 @@ package org.peaktime.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 import org.peaktime.constant.Cafeteria;
 import org.peaktime.entity.base.BaseEntity;
 
@@ -31,11 +32,16 @@ public class Board extends BaseEntity {
     @Column(name = "board_date")
     private LocalDate dateTime;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "student_menu_id")
+    private SdtMenu sdtMenu;
+
     @Builder
-    public Board(Cafeteria cafeteria, String content, Double score) {
+    public Board(Cafeteria cafeteria, String content, Double score, SdtMenu sdtMenu) {
         this.cafeteria = cafeteria;
         this.content = content;
         this.dateTime = LocalDate.now();
         this.score = score;
+        this.sdtMenu = sdtMenu;
     }
 }

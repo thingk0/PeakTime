@@ -49,33 +49,36 @@ public class CafeteriaController {
 
         model.addAttribute("today", LocalDate.now());
         model.addAttribute("status", cafeteriaStatus);
+        model.addAttribute("Top_bar_nickname_notation", "yes");
 
         return "cafeteria/student";
     }
 
-    @GetMapping(value = "/dormitory")
-    public String cafeteriaDormitory(Model model, Principal principal) {
+//    @GetMapping(value = "/dormitory")
+//    public String cafeteriaDormitory(Model model, Principal principal) {
+//
+//        // 혹시 로그인한 객체가 있을 경우,
+//        if (principal != null) {
+//            String email = principal.getName();
+//            String username = memberService.usernameFindByEmail(email);
+//            model.addAttribute("username", username);
+//        }
+//
+//        return "cafeteria/dormitory";
+//    }
+//
+//    @GetMapping(value = "/staff")
+//    public String cafeteriaStaff(Model model, Principal principal) {
+//
+//        // 혹시 로그인한 객체가 있을 경우,
+//        if (principal != null) {
+//            String email = principal.getName();
+//            String username = memberService.usernameFindByEmail(email);
+//            model.addAttribute("username", username);
+//            model.addAttribute("Top_bar_nickname_notation", "yes");
+//        }
+//
+//        return "cafeteria/staff";
+//    }
 
-        // 혹시 로그인한 객체가 있을 경우,
-        if (principal != null) {
-            String email = principal.getName();
-            String username = memberService.usernameFindByEmail(email);
-            model.addAttribute("username", username);
-        }
-
-        return "cafeteria/dormitory";
-    }
-
-    @GetMapping(value = "/staff")
-    public String cafeteriaStaff(Model model, Principal principal) {
-
-        // 혹시 로그인한 객체가 있을 경우,
-        if (principal != null) {
-            String email = principal.getName();
-            String username = memberService.usernameFindByEmail(email);
-            model.addAttribute("username", username);
-        }
-
-        return "cafeteria/staff";
-    }
 }

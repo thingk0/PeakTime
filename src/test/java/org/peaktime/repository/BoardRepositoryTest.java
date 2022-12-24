@@ -32,7 +32,7 @@ class BoardRepositoryTest {
                     .content("오늘 " + i + "점만큼 너무 맛있습니다!")
                     .build();
 
-            boardRepository.save(createDto.toEntity());
+//            boardRepository.save(createDto.toEntity());
         }
 
         // when

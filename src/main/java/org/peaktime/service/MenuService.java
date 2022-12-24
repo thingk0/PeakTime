@@ -22,11 +22,6 @@ public class MenuService {
     private final SdtMenuRepository sdtMenuRepository;
 
     @Transactional
-    public List<SdtMenu> findAllSdtMenus() {
-        return sdtMenuRepository.findAll();
-    }
-
-    @Transactional
     public List<SdtMenu> getAllSdtMenus(LocalDate today) {
         int thisWeek = today.get(WeekFields.ISO.weekOfYear());
 
@@ -35,10 +30,14 @@ public class MenuService {
     }
 
     @Transactional(readOnly = true)
-    public SdtMenu getTodaySdtMenu() {
-        return sdtMenuRepository.findSdtMenuByDateTime(LocalDate.now()).orElseThrow(
-                () -> new EntityNotFoundException("찾을 수 없습니다.")
-        );
+    public String todaySdtMenu() {
+
+        Optional<SdtMenu> menu = sdtMenuRepository.findSdtMenuByDateTime(LocalDate.now());
+        if (menu.isPresent()) {
+            return menu.get().getMenu();
+        }
+
+        return "";
     }
 
 
@@ -48,25 +47,10 @@ public class MenuService {
     @Transactional
     public Double todaySdtMenuScore() {
 
-        // 해당하는 날짜에 메뉴가 존재하지 않을 경우.
-//        if (!sdtMenuRepository.existsByDateTime(LocalDate.now())) {
-//            throw new EntityNotFoundException("해당 날짜의 메뉴가 존재하지 않습니다.");
-//        }
-//
-//        try {
-//            boolean isExistsTodaySdtMenu = sdtMenuRepository.existsByDateTime(LocalDate.now());
-//        } catch (EntityNotFoundException e) {
-//
-//        }
-
         Optional<SdtMenu> byDateTime = sdtMenuRepository.findByDateTime(LocalDate.now());
         if (byDateTime.isEmpty()) {
             return 0.0;
         }
-
-//        if (sdtMenu.getScore() == null) {
-//            return 0.0;
-//        }
 
         return byDateTime.get().getScore();
     }
@@ -115,16 +99,18 @@ public class MenuService {
      * 메뉴 수정 로직.
      */
     @Transactional
-    public void updateSdtMenu(MenuUpdateDto menuUpdateDto) {
+    public Integer updateSdtMenu(MenuUpdateDto menuUpdateDto) {
 
-        // 먼저, 해당하는 날짜의 메뉴가 있는지 조회.
-        SdtMenu sdtMenu = sdtMenuRepository.findByDateTime(menuUpdateDto.getDate()).orElseThrow(
-                // 메뉴가 없다면, 예외처리
-                () -> new EntityNotFoundException("해당하는 날짜에 메뉴가 없습니다.")
-        );
+        Optional<SdtMenu> byDateTime = sdtMenuRepository.findByDateTime(menuUpdateDto.getDate());
+        if (byDateTime.isEmpty()) {
+            return 0;
+        }
 
         // 메뉴가 존재한다면 수정.
+        SdtMenu sdtMenu = byDateTime.get();
         sdtMenu.updateMenu(menuUpdateDto);
+
+        return sdtMenu.getId();
     }
 
     /**
