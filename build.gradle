@@ -19,35 +19,30 @@ repositories {
 }
 
 dependencies {
-    // starter
+
+    // Starter
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-
-    // lombok
+    // Lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-
-    // devtools
+    // Devtools
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-
-    // mariadb
-    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
-
-    // validation
+    // Mysql
+    implementation 'mysql:mysql-connector-java:8.0.26'
+    // Validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-
-    // thymeleaf
+    // Thymeleaf
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
-
-    // 스프링 시큐리티
+    // Security
     implementation 'org.springframework.boot:spring-boot-starter-security'
-    testImplementation 'org.springframework.security:spring-security-test' // 시큐리티 테스트
-
-    // 파이어베이스
+    testImplementation 'org.springframework.security:spring-security-test'
+    // Firebase
     implementation group: 'com.google.firebase', name: 'firebase-admin', version: '8.1.0'
+
 }
 
 tasks.named('test') {
