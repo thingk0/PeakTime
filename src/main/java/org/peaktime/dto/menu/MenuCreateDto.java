@@ -1,22 +1,15 @@
 package org.peaktime.dto.menu;
 
-import lombok.Builder;
-import lombok.Getter;
-import org.peaktime.entity.SdtMenu;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-@Getter
-@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class MenuCreateDto {
-
-    private LocalDate date;
     private String menu;
-
-    public SdtMenu toEntity() {
-        return SdtMenu.builder()
-                .dateTime(date)
-                .menu(menu)
-                .build();
-    }
+    private LocalDate date;
 }

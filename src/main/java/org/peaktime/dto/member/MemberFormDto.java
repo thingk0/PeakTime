@@ -1,16 +1,13 @@
 package org.peaktime.dto.member;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-@Getter
-@Setter
+@Data
 public class MemberFormDto {
 
     @NotBlank(message = "닉네임을 입력해주세요.")
