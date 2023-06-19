@@ -1,10 +1,8 @@
 package org.peaktime.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
+import lombok.*;
 import org.peaktime.constant.Cafeteria;
+import org.peaktime.dto.board.BoardCreateDto;
 import org.peaktime.entity.base.BaseEntity;
 
 import javax.persistence.*;
@@ -12,13 +10,15 @@ import java.time.LocalDate;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@Builder
 @Table(name = "board")
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Board extends BaseEntity {
 
     @Id
     @Column(name = "board_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Enumerated(EnumType.STRING)
@@ -29,19 +29,19 @@ public class Board extends BaseEntity {
 
     private Double score;
 
-    @Column(name = "board_date")
-    private LocalDate dateTime;
+    private LocalDate date;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "student_menu_id")
     private SdtMenu sdtMenu;
 
-    @Builder
-    public Board(Cafeteria cafeteria, String content, Double score, SdtMenu sdtMenu) {
-        this.cafeteria = cafeteria;
-        this.content = content;
-        this.dateTime = LocalDate.now();
-        this.score = score;
-        this.sdtMenu = sdtMenu;
+    public static Board createBoard(SdtMenu sdtMenu, BoardCreateDto createDto) {
+        return Board.builder()
+                .cafeteria(createDto.getCafeteria())
+                .content(createDto.getContent())
+                .score(sdtMenu.getScore())
+                .date(LocalDate.now())
+                .sdtMenu(sdtMenu)
+                .build();
     }
 }

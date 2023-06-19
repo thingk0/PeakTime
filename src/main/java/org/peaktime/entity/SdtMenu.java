@@ -1,9 +1,7 @@
 package org.peaktime.entity;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.peaktime.dto.menu.MenuCreateDto;
 import org.peaktime.dto.menu.MenuUpdateDto;
 
 import javax.persistence.*;
@@ -12,44 +10,44 @@ import java.time.temporal.WeekFields;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
+@AllArgsConstructor
 @Table(name = "student_menu")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SdtMenu {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "student_menu_id")
     private Integer id;
-    @Column(name = "student_menu_created")
-    private LocalDate dateTime;
-    @Column(name = "student_menu_name")
-    private String menu;
-    @Column(name = "student_menu_score")
+
     private Double score;
-    @Column(name = "student_menu_created_week")
+
+    private String menu;
+
+    private LocalDate date;
+
     private Integer week;
 
-    @Builder
-    public SdtMenu(LocalDate dateTime, String menu) {
-        this.menu = menu;
-        this.dateTime = dateTime;
-        this.week = dateTime.get(WeekFields.ISO.weekOfYear());
+
+    public static SdtMenu createSdtMenu(MenuCreateDto createDto) {
+        return SdtMenu.builder()
+                .score(0.0)
+                .menu(createDto.getMenu())
+                .date(createDto.getDate())
+                .week(createDto.getDate().get(WeekFields.ISO.weekOfYear()))
+                .build();
     }
 
-    public void updateMenu(MenuUpdateDto menuUpdateDto) {
+    public int updateMenu(MenuUpdateDto menuUpdateDto) {
         this.menu = menuUpdateDto.getMenu();
-        this.dateTime = menuUpdateDto.getDate();
+        this.date = menuUpdateDto.getDate();
         this.week = menuUpdateDto.getDate().get(WeekFields.ISO.weekOfYear());
+        return this.getId();
     }
 
     public void updateScore(Double point) {
-
-        // 최초 갱신 시, 점수가 없기 때문에 point 로 초기화.
-        if (score == null) {
-            score = point;
-        }
-
-        score = (score + point) / 2.0;
+        this.score = (this.score + point) / 2.0;
     }
 
 }
