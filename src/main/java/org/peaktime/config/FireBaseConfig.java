@@ -13,17 +13,13 @@ public class FireBaseConfig {
 
     @PostConstruct
     public void init() {
-        try{
-            FileInputStream serviceAccount =
-                    new FileInputStream("src/main/resources/hw_sensor.json");
-
+        try {
             FirebaseOptions options = new FirebaseOptions.Builder()
-                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                    .setCredentials(GoogleCredentials.fromStream(
+                            new FileInputStream("src/main/resources/hw_sensor.json")))
                     .build();
-
             FirebaseApp.initializeApp(options);
-
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
