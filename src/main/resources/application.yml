@@ -20,8 +20,7 @@ spring:
 
 logging:
   level:
-    org:
-      hibernate:
-        type:
-          descriptor:
-            sql: trace
+    org.springframework.security: WARN
+    org.hibernate.type.descriptor.sql: trace
+    org.springframework.boot.devtools.restart: ERROR
+    org.springframework.security.web.DefaultSecurityFilterChain: ERROR
