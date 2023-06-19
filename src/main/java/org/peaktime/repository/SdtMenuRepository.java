@@ -9,8 +9,8 @@ import java.util.Optional;
 
 public interface SdtMenuRepository extends JpaRepository<SdtMenu, Integer> {
 
-    Optional<SdtMenu> findSdtMenuByDateTime(LocalDate date);
-    Optional<SdtMenu> findByDateTime(LocalDate dateTime);
-    boolean existsByDateTime(LocalDate datetime);
+    Optional<SdtMenu> findSdtMenuByDate(LocalDate date);
+    Optional<SdtMenu> findByDate(LocalDate dateTime);
+    boolean existsByDate(LocalDate datetime);
     List<SdtMenu> findAllByWeekEquals(Integer week);
 }

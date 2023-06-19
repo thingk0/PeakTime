@@ -10,5 +10,5 @@ import java.util.List;
 public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     List<Board> findByCafeteria(Cafeteria cafeteria);
-    List<Board> findByCafeteriaAndDateTime(Cafeteria cafeteria, LocalDate datetime);
+    List<Board> findByCafeteriaAndDate(Cafeteria cafeteria, LocalDate datetime);
 }

@@ -33,7 +33,7 @@ class MemberRepositoryTest {
                 .name("test")
                 .build();
 
-        Member member = memberCreateDto.createMember();
+        Member member = Member.createMember(memberCreateDto, passwordEncoder);
 
         // when
         memberRepository.save(member);
