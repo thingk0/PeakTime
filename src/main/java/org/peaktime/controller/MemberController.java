@@ -20,7 +20,6 @@ import javax.validation.Valid;
 public class MemberController {
 
     private final MemberService memberService;
-    private final PasswordEncoder passwordEncoder;
 
     // 회원가입 페이지 반환.
     @GetMapping(value = "/new")
@@ -35,22 +34,19 @@ public class MemberController {
                                 BindingResult bindingResult,
                                 Model model) {
 
-        // 만약 error 가 발생하면 다시 템플릿 반환.
         if (bindingResult.hasErrors()) {
-            /* 회원가입 실패 시 입력 데이터 값 유지 */
             model.addAttribute("memberFormDto", memberFormDto);
+            model.addAttribute("errorMessage", "회원 가입에 실패했습니다. 다시 시도해주세요.");
             return "member/memberForm";
         }
 
         try {
-            MemberCreateDto memberCreateDto = MemberCreateDto.builder()
-                    .email(memberFormDto.getEmail())
-                    .password(passwordEncoder.encode(memberFormDto.getPassword()))
-                    .name(memberFormDto.getName())
-                    .build();
-
             // 회원가입
-            memberService.signUp(memberCreateDto);
+            memberService.createMember(MemberCreateDto.builder()
+                    .name(memberFormDto.getName())
+                    .email(memberFormDto.getEmail())
+                    .password((memberFormDto.getPassword()))
+                    .build());
 
         } catch (IllegalStateException e) {
             model.addAttribute("errorMessage", e.getMessage());

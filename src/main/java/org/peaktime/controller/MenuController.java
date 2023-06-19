@@ -17,53 +17,32 @@ public class MenuController {
 
     private final MenuService menuService;
 
-    /**
-     * 학생식당 메뉴 추가.
-     */
+
     @PostMapping(value = "/student/create")
-    public String createSdtMenu(@RequestParam("date") String date,
-                                @RequestParam("menu") String menu,
-                                Model model) {
+    public String createSdtMenu(@ModelAttribute MenuCreateDto menuCreateDto, Model model) {
 
-        MenuCreateDto menuCreateDto = MenuCreateDto.builder()
-                .date(LocalDate.parse(date))
-                .menu(menu)
-                .build();
-
-        if (menuService.findSdtMenuByDateTime(menuCreateDto.getDate())) {
+        try {
+            menuService.validateNoMenuExistsOnDate(menuCreateDto.getDate());
+        } catch (IllegalStateException e) {
             model.addAttribute("alreadyExists", "해당 메뉴가 이미 존재합니다.");
             return "redirect:/";
         }
 
-        menuService.saveSdtMenu(menuCreateDto);
+        menuService.createSdtMenu(menuCreateDto);
         return "redirect:/";
     }
 
-    /**
-     * 학생식당 메뉴 수정.
-     */
+
     @PostMapping(value = "/student/modify")
-    public String updateSdtMenu(@RequestParam("date") String date,
-                                @RequestParam("menu") String menu,
-                                Model model) {
-
-        MenuUpdateDto menuUpdateDto = MenuUpdateDto.builder()
-                .date(LocalDate.parse(date))
-                .menu(menu)
-                .build();
-
-        menuService.updateSdtMenu(menuUpdateDto);
-
+    public String updateSdtMenu(@ModelAttribute MenuUpdateDto menuUpdateDto, Model model) {
+        menuService.updateSdtMenuByDate(menuUpdateDto);
         return "redirect:/";
     }
 
-    /**
-     * 학생식당 메뉴 삭제.
-     */
-    @PostMapping(value = "/student/delete")
-    public String deleteSdtMenu(@RequestParam("date") String date) {
-        menuService.deleteSdtMenu(LocalDate.parse(date));
 
+    @PostMapping(value = "/student/delete")
+    public String deleteSdtMenu(@ModelAttribute("date") String date) {
+        menuService.deleteSdtMenuByDate(LocalDate.parse(date));
         return "redirect:/";
     }
 }

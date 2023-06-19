@@ -10,7 +10,6 @@ import org.peaktime.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -42,7 +41,7 @@ class MemberControllerTest {
                 .build();
 
         // when
-        Integer savedMemberId = memberService.signUp(memberCreateDto);
+        Integer savedMemberId = memberService.createMember(memberCreateDto);
         Member findMember = memberRepository.findById(savedMemberId).orElseThrow(
                 () -> new EntityNotFoundException("해당 ID 를 통해 계정을 찾을 수 없습니다.")
         );
@@ -62,8 +61,8 @@ class MemberControllerTest {
                 .build();
 
         // when
-        Integer memberId = memberService.signUp(memberCreateDto);
-        memberService.updateRole(memberId, Role.STUDENT_MANAGER);
+        Integer memberId = memberService.createMember(memberCreateDto);
+        memberService.updateMemberRole(memberId, Role.STUDENT_MANAGER);
 
         Optional<Member> byId = memberRepository.findById(memberId);
 

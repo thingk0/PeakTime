@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class MenuControllerTest {
@@ -31,7 +30,7 @@ class MenuControllerTest {
 
         for (int i = 0; i < menuList.length; i++) {
             SdtMenu sdtMenu = SdtMenu.builder()
-                    .dateTime(LocalDate.now().minusDays(1).plusDays(i))
+                    .date(LocalDate.now().minusDays(1).plusDays(i))
                     .menu(menuList[i])
                     .build();
 
