@@ -6,8 +6,9 @@ build/
 !**/src/test/**/build/
 
 ### etc ###
-src/main/resources/application-security.properties
+*.DS_Store
 src/main/resources/hw_sensor.json
+/src/main/resources/application-prop.yml
 
 ### STS ###
 .apt_generated
